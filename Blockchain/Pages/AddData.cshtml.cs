@@ -27,45 +27,11 @@ namespace Blockchain.Pages
         public string birthDate { get; set; }
 
         [Required]
-        [MaxLength(8)]
-        [Display(Name = "antecedenten")]
-        public string antecedenten { get; set; }
+        [Display(Name = "type")]
+        public string type { get; set; }
 
         [Required]
-        [MaxLength(8)]
-        [Display(Name = "aanhoudingen")]
-        public string aanhoudingen { get; set; }
-
-        public string heeftISDMaatregel { get; set; }
-
-        public string heeftOnderzoekRad { get; set; }
-
-        [Required]
-        [MaxLength(8)]
-        [Display(Name = "sepots")]
-        public string sepots { get; set; }
-
-        [Required]
-        [MaxLength(8)]
-        [Display(Name = "lopendeDossiers")]
-        public string lopendeDossiers { get; set; }
-
-        public string heeftUitkering { get; set; }
-
-        [Required]
-        [MaxLength(8)]
-        [Display(Name = "meldingenRad")]
-        public string meldingenRad { get; set; }
-
-        public string zitInGroepsAanpak { get; set; }
-
-        public string heeftIdBewijs { get; set; }
-
-        public string heeftLopendTraject { get; set; }
-
-        [Required]
-        [MaxLength(16)]
-        [Display(Name = "laatsteGesprek")]
-        public string laatsteGesprek { get; set; }
+        [Display(Name = "value")]
+        public string value { get; set; }
     }
 }
