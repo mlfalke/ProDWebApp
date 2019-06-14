@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="DataForm">
-            <div class="AddDataForm" method="post" asp-controller="AddBlock" asp-action="AddData">
+            <form class="AddDataForm" method="post" asp-controller="AddBlock" asp-action="AddData">
                 <h2>Data toevoegen</h2>
                 <div class="form-group">
                     <label asp-for="surname" class="surname">Achternaam:</label>
@@ -48,7 +48,7 @@
                 <div>
                     <input type="submit" value="Akkoord" class="btn btn-primary" />
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
