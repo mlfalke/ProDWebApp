@@ -39,6 +39,7 @@ namespace Blockchain
 
         public static void Main(string[] args)
         {
+            CreateWebHostBuilder(args).Build().Run();
             var password = "Hetwachtwoord";
             var collection = new X509Certificate2Collection();
             string pet = @"6FE9A3444993E4EB9D449D532FD7B4CDFD19B4BC.pfx";
@@ -68,7 +69,6 @@ namespace Blockchain
                     break;
                 }
             }
-            CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
