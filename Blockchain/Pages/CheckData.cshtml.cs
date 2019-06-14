@@ -13,13 +13,13 @@ namespace Blockchain.Pages
         [ViewData]
         public string surname { get; set; } = "Rick Sanchez";
 
-        public string bsn { get; set; }
+        public string bsn { get; set; } = "None of your Business";
 
-        public string birthDate { get; set; }
+        public string birthDate { get; set; } = "Some Multiverses ago";
 
-        public string type { get; set; }
+        public string type { get; set; } = "Wabalabadubdub";
 
-        public string value { get; set; }
+        public string value { get; set; } = "L..L..L..Lick mah ballzz";
 
         public IActionResult OnGet()
         {
