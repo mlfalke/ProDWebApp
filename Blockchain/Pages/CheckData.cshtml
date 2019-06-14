@@ -4,3 +4,28 @@
     ViewData["Title"] = "Data bekijken";
 }
 <h2>@ViewData["Title"]</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="Naam">
+            <h3>Naam:</h3>
+            <h3>@Model.surname</h3>
+        </div>
+        <div class="BSN">
+            <h3>BSN:</h3>
+            <h3>@Model.bsn</h3>
+        </div>
+        <div class="bDate">
+            <h3>Geboortedatum:</h3>
+            <h3>@Model.birthDate</h3>
+        </div>
+        <div class="TypeData">
+            <h3>Soort Gegevens:</h3>
+            <h3>@Model.type</h3>
+        </div>
+        <div class="ValueBlock">
+            <h3>Gegevens</h3>
+            <h3>@Model.value</h3>
+        </div>
+    </div>
+</div>
