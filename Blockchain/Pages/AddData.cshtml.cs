@@ -10,28 +10,33 @@ namespace Blockchain.Pages
 {
     public class AddDataModel : PageModel
     {
-        [Required]
-        [MaxLength(256)]
-        [Display(Name = "surname")]
+        //[Required]
+        //[MaxLength(256)]
+        //[Display(Name = "surname")]
         public string surname { get; set; }
 
-        [Required]
-        [MinLength(9, ErrorMessage = "BSN is te kort")]
-        [MaxLength(9, ErrorMessage = "BSN is te lang")]
-        [Display(Name = "bsn")]
+        //[Required]
+        //[MinLength(9, ErrorMessage = "BSN is te kort")]
+        //[MaxLength(9, ErrorMessage = "BSN is te lang")]
+        //[Display(Name = "bsn")]
         public string bsn { get; set; }
 
-        [Required]
-        [MaxLength(16)]
-        [Display(Name = "birthDate")]
+        //[Required]
+        //[MaxLength(16)]
+        //[Display(Name = "birthDate")]
         public string birthDate { get; set; }
 
-        [Required]
-        [Display(Name = "type")]
+        //[Required]
+        //[Display(Name = "type")]
         public string type { get; set; }
 
-        [Required]
-        [Display(Name = "value")]
+        //[Required]
+        //[Display(Name = "value")]
         public string value { get; set; }
+
+        public void OnPost()
+        {
+
+        }
     }
 }

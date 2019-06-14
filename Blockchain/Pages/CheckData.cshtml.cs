@@ -29,6 +29,7 @@ namespace Blockchain.Pages
             type = "Wabalabadubdub";
             value = "L..L..L..Lick mah ballzz";
             }
+
         //public IActionResult OnGet()
         //{
         //    CheckDataModel dataBlock = new CheckDataModel
