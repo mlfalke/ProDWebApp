@@ -6,6 +6,14 @@
     <StartupObject>Blockchain.Program</StartupObject>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="GovernmentChain.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="GovernmentChain.json" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="BouncyCastle" Version="1.8.5" />

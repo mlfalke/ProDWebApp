@@ -85,7 +85,7 @@ namespace Blockchain
                 }
             }
             //If GovernmentChain doesn't exist, create new:
-            using (StreamReader r = new StreamReader("GovernmentChain.txt"))
+            using (StreamReader r = new StreamReader("GovernmentChain.json"))
             {
                 string chainJson = r.ReadToEnd();
                 GovernmentChain = JsonConvert.DeserializeObject<Models.Blockchain>(chainJson);
