@@ -109,6 +109,16 @@ namespace Blockchain.Models
             return this.Chain;
         }
     
+    public IList<Data> GetAllData()
+        {
+            var dataList = new List<Data>();
+            foreach (Block b in this.Chain)
+            {
+                dataList.Add(b.GetBlockData());
+            }
+            return (dataList);
+        }
+    
     public IList<Block> GetBlocksByType(string type)
         {
             IList<Block> blocks = new List<Block>();

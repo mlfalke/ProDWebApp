@@ -22,23 +22,26 @@ namespace Blockchain.Pages
 
         public string value { get; set; }
 
-        public void OnGet() 
+        /*public void OnGet() 
             {
             surname = "Rick Sanchez";
             bsn = "None of your Business";
             birthDate = "Some Multiverses ago";
             type = "Wabalabadubdub";
             value = "L..L..L..Lick mah ballzz";
-            }
+            }*/
         
-        public void OnGet(string type, Person person)
+        public void OnGet()
         {
-            Data data = Program.GovernmentChain.GetMostRecent(type, person).GetBlockData();
-            surname = data.person.surname;
-            bsn = data.person.bsn;
-            birthDate = data.person.birthDate.ToShortTimeString();
-            type = data.type;
-            value = data.value;
+            var listData = Program.GovernmentChain.GetAllData();
+            foreach(Data data in listData)
+            {
+                surname = data.person.surname;
+                bsn = data.person.bsn;
+                birthDate = data.person.birthDate.ToShortTimeString();
+                type = data.type;
+                value = data.value;
+            }
         }
     }
 }
