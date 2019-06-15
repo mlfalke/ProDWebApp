@@ -37,7 +37,7 @@ namespace Blockchain.Pages
         public string value { get; set; }
 
 
-        public async Task<IActionResult> OnPostAsync(string surname, string bsn, DateTime birthDate, string type, string value)
+        public IActionResult OnPostAsync([FromForm]string surname, string bsn, DateTime birthDate, string type, string value)
         {
 
             Person person = new Person(surname, bsn, birthDate);
