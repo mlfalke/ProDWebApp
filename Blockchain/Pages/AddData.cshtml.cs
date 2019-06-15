@@ -43,6 +43,5 @@ namespace Blockchain.Pages
 
             return RedirectToPage();
         }
-
     }
 }

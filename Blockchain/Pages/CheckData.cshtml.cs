@@ -11,30 +11,23 @@ namespace Blockchain.Pages
     public class CheckDataModel : PageModel
     {
         [ViewData]
-        public string surname { get; set; } = "Rick Sanchez";
+        public string surname { get; set; }
 
-        public string bsn { get; set; } = "None of your Business";
+        public string bsn { get; set; }
 
-        public string birthDate { get; set; } = "Some Multiverses ago";
+        public string birthDate { get; set; }
 
-        public string type { get; set; } = "Wabalabadubdub";
+        public string type { get; set; }
 
-        public string value { get; set; } = "L..L..L..Lick mah ballzz";
+        public string value { get; set; }
 
-        public IActionResult OnGet()
-        {
-            CheckDataModel dataBlock = new CheckDataModel
+        public void OnGet() 
             {
-                surname = "Rick Sanchez",
-                bsn = "None of your Business",
-                birthDate = "Some Multiverses ago",
-                type = "Wabalabadubdub",
-                value = "L..L..L..Lick mah ballzz"
-            };
-
-            ViewData["CheckData"] = dataBlock;
-            return Page();
-        }
-
+            surname = "Rick Sanchez";
+            bsn = "None of your Business";
+            birthDate = "Some Multiverses ago";
+            type = "Wabalabadubdub";
+            value = "L..L..L..Lick mah ballzz";
+            }        
     }
 }

@@ -23,13 +23,9 @@ namespace Blockchain.Pages
         [Required]
         [Display(Name = "issuedtill")]
         public DateTime issuedtill { get; set; }
-
-
-        
+       
         public IActionResult OnPost([FromForm] string name, DateTime issuedon, DateTime issuedtill, string password)
-        {
-            
-
+        {          
             Key.Create(name, issuedon, issuedtill, password);
             return RedirectToPage();
         }
