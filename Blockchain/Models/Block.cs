@@ -39,15 +39,10 @@ namespace Blockchain.Models
             foreach(Permission p in c.GetTruePermissions()){
                 if(p.name == newData.type){
                     //TO DO: Add gathering of specific public key of the company (c) with "c.publicKey" and encrypt variable "data" with that key.
-                    blockData = blockData + "{'targetCompany': '"+c.name+"', 'Data': '"+Encryption.DataEncrypt(data, Program.certificate)+"'},";
+                    blockData = blockData + "{'targetCompany': '"+c.name+"', 'data': '"+Encryption.DataEncrypt(data, Program.certificate)+"'},";
                 }
             }
         }
-
-        var dit = Encryption.DataEncrypt(data, Program.certificate);
-        Console.WriteLine(dit);
-        var dat = Encryption.DataDecrypt(dit, Program.certificate);
-        Console.WriteLine(dat);
 
         //Close and finish the blockData string so it is fully closed off
         blockData = blockData.Substring(0,blockData.Length-1);
@@ -59,6 +54,25 @@ namespace Blockchain.Models
         this.Data = blockData;
         this.Hash = CalculateHash();  
     }  
+    
+    public Data GetBlockData()
+        {
+            var Data = JsonConvert.DeserializeObject<dynamic>(this.Data);
+            string allData = Data["value"]["data"];
+            var allDataJson = JsonConvert.DeserializeObject<dynamic>(allData);
+            string data = "";
+            foreach(dynamic d in allDataJson)
+            {
+                if(d["targetCompany"] == Program.hostCompany)
+                {
+                    data = d["data"];
+                }
+            }
+            string Ddata = Encryption.DataDecrypt(data, Program.certificate);
+            Data dataObject = JsonConvert.DeserializeObject<Data>(Ddata);
+            dataObject.type = Data["type"];
+            return (dataObject);
+        }
 
     
   

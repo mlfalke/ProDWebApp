@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Blockchain.Models.Cryptography;
+using Blockchain.Models;
 
 namespace Blockchain.Pages
 {
@@ -25,7 +26,7 @@ namespace Blockchain.Pages
         [Required]
         [MaxLength(16)]
         [Display(Name = "birthDate")]
-        public string birthDate { get; set; }
+        public DateTime birthDate { get; set; }
 
         [Required]
         [Display(Name = "type")]
@@ -36,12 +37,15 @@ namespace Blockchain.Pages
         public string value { get; set; }
 
 
-        public async Task<IActionResult> OnPostAsync(string name, string password, DateTime issuedon, DateTime issuedtill)
+        public async Task<IActionResult> OnPostAsync(string surname, string bsn, DateTime birthDate, string type, string value)
         {
 
-            Key.Create(name, issuedon,issuedtill,password);
+            Person person = new Person(surname, bsn, birthDate);
+            Data newData = new Data(type, value, person);
+            Block block = new Block(DateTime.Now, newData, person, Program.companies, Program.hostCompany);
+            Program.GovernmentChain.AddBlock(block);
 
-            return RedirectToPage();
+            return RedirectToPage("/CheckData");
         }
     }
 }

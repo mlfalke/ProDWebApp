@@ -102,7 +102,68 @@ namespace Blockchain.Models
         block.PreviousHash = latestBlock.Hash;  
         block.Hash = block.CalculateHash();  
         Chain.Add(block);  
-    } 
+    }
+
+    public IList<Block> GetAllBlocks()
+        {
+            return this.Chain;
+        }
+    
+    public IList<Block> GetBlocksByType(string type)
+        {
+            IList<Block> blocks = new List<Block>();
+            foreach (Block b in Chain)
+            {
+                var dataJson = JsonConvert.DeserializeObject<dynamic>(b.Data);
+                if (dataJson["type"] == type)
+                {
+                    blocks.Add(b);
+                }
+            }
+            return (blocks);
+        }
+
+    public IList<Block> GetBlocks(string type, Person person)
+        {
+            IList<Block> blocks = new List<Block>();
+            foreach(Block b in Chain)
+            {
+                var dataJson = JsonConvert.DeserializeObject<dynamic>(b.Data);
+                if(dataJson["type"] == type && b.GetBlockData().person == person)
+                {
+                    blocks.Add(b);
+                }
+            }
+            return (blocks);
+        }
+    public Block GetMostRecent(string type, Person person)
+        {
+            DateTime newestTime = DateTime.MinValue;
+            Block newestBlock = new Block(DateTime.Now);
+            var blocks = GetBlocks(type, person);
+            foreach(Block b in blocks)
+            {
+                if (b.TimeStamp > newestTime)
+                {
+                    newestTime = b.TimeStamp;
+                    newestBlock = b;
+                }
+            }
+            return (newestBlock);
+        }
+
+    public IList<Block> GetBlocksByPerson(Person person)
+        {
+            IList<Block> blocks = new List<Block>();
+            foreach (Block b in Chain)
+            {
+                if (b.GetBlockData().person == person)
+                {
+                    blocks.Add(b);
+                }
+            }
+            return (blocks);
+        }
 
     public bool IsValid()  
 {  

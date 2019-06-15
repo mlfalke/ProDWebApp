@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Blockchain.Controllers;
+using Blockchain.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Blockchain.Pages
@@ -28,6 +29,16 @@ namespace Blockchain.Pages
             birthDate = "Some Multiverses ago";
             type = "Wabalabadubdub";
             value = "L..L..L..Lick mah ballzz";
-            }        
+            }
+        
+        public void OnGet(string type, Person person)
+        {
+            Data data = Program.GovernmentChain.GetMostRecent(type, person).GetBlockData();
+            surname = data.person.surname;
+            bsn = data.person.bsn;
+            birthDate = data.person.birthDate.ToShortTimeString();
+            type = data.type;
+            value = data.value;
+        }
     }
 }
