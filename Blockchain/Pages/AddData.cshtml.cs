@@ -36,10 +36,10 @@ namespace Blockchain.Pages
         public string value { get; set; }
 
 
-        public async Task<IActionResult> OnPostAsync(string name, string password, DateTime issuedon, DateTime issuedtill)
+        public IActionResult OnPostAsync([FromForm]string surname, string password, DateTime issuedon, DateTime issuedtill)
         {
 
-            Key.Create(name, issuedon,issuedtill,password);
+            
 
             return RedirectToPage();
         }
