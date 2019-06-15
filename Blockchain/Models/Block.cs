@@ -25,6 +25,15 @@ namespace Blockchain.Models
         this.Hash = CalculateHash();
     }
 
+    public Block(string Index, string TimeStamp, string PreviousHash, string Data, string Hash)
+        {
+            this.Index = int.Parse(Index);
+            this.TimeStamp = DateTime.Parse(TimeStamp);
+            this.PreviousHash = PreviousHash;
+            this.Data = Data;
+            this.Hash = Hash;
+        }
+
     public Block(DateTime timeStamp, Data newData, Person person, List<Company> companies, Company hostCompany)  
     {  
         UnicodeEncoding ByteConverter = new UnicodeEncoding();
