@@ -72,26 +72,6 @@ namespace Blockchain
             }
         }
 
-        public void CheckIsValid()
-        {
-            if(GovernmentChain != null)
-            {
-                //To do:
-                // - Something has to happen when chain is invalid
-                // - (Possibly with hashing) check if own GovernmentChain.txt is same as others
-                if (!GovernmentChain.IsValid())
-                {
-                    //What happens when it's invalid?
-                }
-            }
-            //If GovernmentChain doesn't exist, create new:
-            using (StreamReader r = new StreamReader("GovernmentChain.json"))
-            {
-                string chainJson = r.ReadToEnd();
-                GovernmentChain = JsonConvert.DeserializeObject<Models.Blockchain>(chainJson);
-            }
-        }
-
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();

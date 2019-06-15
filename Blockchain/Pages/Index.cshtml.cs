@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 
 namespace Blockchain.Pages
 {
@@ -11,7 +13,22 @@ namespace Blockchain.Pages
     {
         public void OnGet()
         {
-
+            if (Program.GovernmentChain != null)
+            {
+                //To do:
+                // - Something has to happen when chain is invalid
+                // - (Possibly with hashing) check if own GovernmentChain.txt is same as others
+                if (!Program.GovernmentChain.IsValid())
+                {
+                    //What happens when it's invalid?
+                }
+            }
+            //If GovernmentChain doesn't exist, create new:
+            using (StreamReader r = new StreamReader("GovernmentChain.json"))
+            {
+                string chainJson = r.ReadToEnd();
+                Program.GovernmentChain = JsonConvert.DeserializeObject<Models.Blockchain>(chainJson);
+            }
         }
     }
 }
