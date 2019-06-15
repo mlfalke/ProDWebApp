@@ -22,15 +22,15 @@ namespace Blockchain.Models.PeerToPeer{
                     }
                     else
                     {
-                        Blockchain newChain = JsonConvert.DeserializeObject<Blockchain>(e.Data);
-                        if (newChain.IsValid() && newChain.Chain.Count > Program.GovernmentChain.Chain.Count)
+                        Blockchainblock newChain = JsonConvert.DeserializeObject<Blockchainblock>(e.Data);
+                        if (newChain.IsValid() && newChain.Chain.Count > LoadBlockchain.GovernmentChain.Chain.Count)
                         {
                             List<Transaction> newTransactions = new List<Transaction>();
                             // newTransactions.AddRange(newChain.PendingTransactions);
                             // newTransactions.AddRange(Program.GovernmentChain.PendingTransactions);
 
                             // newChain.PendingTransactions = newTransactions;
-                            Program.GovernmentChain = newChain;
+                            LoadBlockchain.GovernmentChain = newChain;
                         }
                     }
                 };
@@ -38,7 +38,7 @@ namespace Blockchain.Models.PeerToPeer{
                 {
                     ws.Connect();
                     ws.Send("Hi Server");
-                    ws.Send(JsonConvert.SerializeObject(Program.GovernmentChain));
+                    ws.Send(JsonConvert.SerializeObject(LoadBlockchain.GovernmentChain));
                 }
                 catch (System.Exception Error)
                 {

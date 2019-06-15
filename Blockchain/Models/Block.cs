@@ -15,8 +15,9 @@ namespace Blockchain.Models
     public DateTime TimeStamp { get; set; }  
     public string PreviousHash { get; set; }  
     public string Hash { get; set; }  
-    public string Data { get; set; }  
-  
+    public string Data { get; set; }
+
+        [JsonConstructor]
     public Block(DateTime timeStamp){
         this.Index = 0;
         this.TimeStamp = timeStamp;
@@ -39,15 +40,12 @@ namespace Blockchain.Models
             foreach(Permission p in c.GetTruePermissions()){
                 if(p.name == newData.type){
                     //TO DO: Add gathering of specific public key of the company (c) with "c.publicKey" and encrypt variable "data" with that key.
-                    blockData = blockData + "{'targetCompany': '"+c.name+"', 'Data': '"+Encryption.DataEncrypt(data, Program.certificate)+"'},";
+                    blockData = blockData + "{'targetCompany': '"+c.name+"', 'Data': '"+data+"'},";
                 }
             }
         }
 
-        var dit = Encryption.DataEncrypt(data, Program.certificate);
-        Console.WriteLine(dit);
-        var dat = Encryption.DataDecrypt(dit, Program.certificate);
-        Console.WriteLine(dat);
+        
 
         //Close and finish the blockData string so it is fully closed off
         blockData = blockData.Substring(0,blockData.Length-1);

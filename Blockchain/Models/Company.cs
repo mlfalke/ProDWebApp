@@ -5,11 +5,14 @@ using System.Text;
 
 namespace Blockchain.Models
 {
+
+
     public class Company {
             public string name;
             public List<Permission> permissions;
 
-            public List<Permission> GetAllPermissions (){
+
+public List<Permission> GetAllPermissions (){
                 return this.permissions;
             }
             public List<Permission> GetTruePermissions (){

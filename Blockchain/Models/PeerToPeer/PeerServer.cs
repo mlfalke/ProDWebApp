@@ -16,11 +16,11 @@ namespace Blockchain.Models.PeerToPeer
 
         public void Start()
         {
-            wss = new WebSocketServer($"wss://{Program.IpV4Address}:{Program.Port}");
+            wss = new WebSocketServer($"wss://{Blockchain.IpV4Address}:{Blockchain.Port}");
             // ws = new WebSocketServer(Program.Port);
             wss.AddWebSocketService<P2PServer>("/Blockchain");
             wss.Start();
-            Console.WriteLine($"Started server at ws://{Program.IpV4Address}:{Program.Port}");
+            Console.WriteLine($"Started server at ws://{Blockchain.IpV4Address}:{Blockchain.Port}");
         }
         protected override void OnMessage(MessageEventArgs e)
         {
@@ -31,21 +31,21 @@ namespace Blockchain.Models.PeerToPeer
             }
             else
             {
-                Blockchain newChain = JsonConvert.DeserializeObject<Blockchain>(e.Data);
+                Blockchainblock newChain = JsonConvert.DeserializeObject<Blockchainblock>(e.Data);
 
-                if (newChain.IsValid() && newChain.Chain.Count > Program.GovernmentChain.Chain.Count)
+                if (newChain.IsValid() && newChain.Chain.Count > LoadBlockchain.GovernmentChain.Chain.Count)
                 {
                     List<Transaction> newTransactions = new List<Transaction>();
                     // newTransactions.AddRange(newChain.PendingTransactions);
                     // newTransactions.AddRange(Program.GovernmentChain.PendingTransactions);
 
                     // newChain.PendingTransactions = newTransactions;
-                    Program.GovernmentChain = newChain;
+                    LoadBlockchain.GovernmentChain = newChain;
                 }
 
                 if (!chainSynched)
                 {
-                    Send(JsonConvert.SerializeObject(Program.GovernmentChain));
+                    Send(JsonConvert.SerializeObject(LoadBlockchain.GovernmentChain));
                     chainSynched = true;
                 }
             }

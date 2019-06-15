@@ -42,8 +42,10 @@ namespace Blockchain.Pages
 
             Person person = new Person(surname, bsn, birthDate);
             Data newData = new Data(type, value, person);
-            Block block = new Block(DateTime.Now, newData, person, Program.companies, Program.hostCompany);
-            Program.GovernmentChain.AddBlock(block);
+            LoadBlockchain.loadchain();
+            
+            Block block = new Block(DateTime.Now, newData, person, LoadBlockchain.companies, LoadBlockchain.hostCompany);
+            LoadBlockchain.GovernmentChain.AddBlock(block);
 
             return RedirectToPage();
         }

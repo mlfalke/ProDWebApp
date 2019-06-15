@@ -37,8 +37,8 @@ namespace Blockchain.Controllers
             // };
             Person person = new Person(ad.surname, ad.bsn, Convert.ToDateTime(ad.birthDate));
             Data newData = new Data(ad.type, ad.value, person);
-            Block block = new Block(DateTime.Now, newData, person, Program.companies, Program.hostCompany);
-            Program.GovernmentChain.AddBlock(block);
+            Block block = new Block(DateTime.Now, newData, person, LoadBlockchain.companies, LoadBlockchain.hostCompany);
+            LoadBlockchain.GovernmentChain.AddBlock(block);
             // To do:
             // - Make a block
             // - Decide if we do 2nd or 3rd option in block-creation (right now the reading of the companies.json happens inside the function of Block())
