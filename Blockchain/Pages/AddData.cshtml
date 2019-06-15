@@ -1,13 +1,13 @@
 ﻿@page
 @model AddDataModel
 @{
-    ViewData["Title"] = "Add Data";
+    ViewData["Title"] = "AddData";
 }
 
 <div class="container">
     <div class="row">
         <div class="DataForm">
-            <div class="AddDataForm" method="post" asp-controller="AddBlock" asp-action="AddData">
+            <form class="AddDataForm" method="post" asp-controller="AddBlock" asp-action="AddData">
                 <h2>Data toevoegen</h2>
                 <div class="form-group">
                     <label asp-for="surname" class="surname">Achternaam:</label>
@@ -20,7 +20,7 @@
                     <span asp-validation-for="bsn" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="birthDate" class="birthDate">GeboorteDatum (dd-mm-jjjj):</label>
+                    <label asp-for="birthDate" class="birthDate">Geboortedatum (dd-mm-jjjj):</label>
                     <input asp-for="birthDate" class="form-control" maxlength="16" />
                     <span asp-validation-for="birthDate" class="text-danger"></span>
                 </div>
@@ -41,14 +41,14 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="value" class="value">Waarde van de toe te voegen data:</label>
+                    <label asp-for="value" class="value">Gegevens:</label>
                     <input asp-for="value" class="form-control" maxlength="16" />
                     <span asp-validation-for="value" class="text-danger"></span>
                 </div>
                 <div>
                     <input type="submit" value="Akkoord" class="btn btn-primary" />
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

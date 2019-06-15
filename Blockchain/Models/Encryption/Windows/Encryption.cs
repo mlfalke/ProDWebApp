@@ -14,28 +14,28 @@ namespace Blockchain.Models.Cryptography
     {
         public static string DataEncrypt(string data, X509Certificate2 cert)
         {
-            using (RSA rsa = cert.GetRSAPublicKey()) {
-
-               UnicodeEncoding ByteConverter = new UnicodeEncoding();
-               byte[] Bdata = ByteConverter.GetBytes(data); 
-               byte[] encryptedData = rsa.Encrypt(Bdata, RSAEncryptionPadding.OaepSHA256);
-               string encryptedDataS = Convert.ToBase64String(encryptedData);
-               return encryptedDataS;
-
-            }   
+            using (RSA rsa = cert.GetRSAPublicKey())
+            {
+                UnicodeEncoding ByteConverter = new UnicodeEncoding();
+                byte[] Bdata = ByteConverter.GetBytes(data);
+                byte[] encryptedData = rsa.Encrypt(Bdata, RSAEncryptionPadding.OaepSHA256);
+                string encryptedDataS = Convert.ToBase64String(encryptedData);
+                return encryptedDataS;
+            }
         }
 
         public static string DataDecrypt(string data, X509Certificate2 cert)
         {
-            
             using (RSA rsa = cert.GetRSAPrivateKey())
             {
-               UnicodeEncoding ByteConverter = new UnicodeEncoding();
-               byte[] Bdata = ByteConverter.GetBytes(data); 
-               byte[] decryptedData = rsa.Decrypt(Bdata, RSAEncryptionPadding.OaepSHA256);
-               string decryptedDataS = Convert.ToBase64String(decryptedData);
-               return decryptedDataS;
+                UnicodeEncoding ByteConverter = new UnicodeEncoding();
+                byte[] Bdata = Convert.FromBase64String(data);
+
+                byte[] decryptedData = rsa.Decrypt(Bdata, RSAEncryptionPadding.OaepSHA256);
+                string decryptedDataS = ByteConverter.GetString(decryptedData);
+                return decryptedDataS;
             }
+
         }
     }
 }

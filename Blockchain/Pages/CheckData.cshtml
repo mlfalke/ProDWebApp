@@ -1,31 +1,33 @@
 ﻿@page
 @model CheckDataModel
 @{
-    ViewData["Title"] = "Data bekijken";
+    ViewData["Title"] = "CheckData";
 }
-<h2>@ViewData["Title"]</h2>
 
-<div class="container">
-    <div class="row">
-        <div class="Naam">
-            <h3>Naam:</h3>
-            <h3>@Model.surname</h3>
-        </div>
-        <div class="BSN">
-            <h3>BSN:</h3>
-            <h3>@Model.bsn</h3>
-        </div>
-        <div class="bDate">
-            <h3>Geboortedatum:</h3>
-            <h3>@Model.birthDate</h3>
-        </div>
-        <div class="TypeData">
-            <h3>Soort Gegevens:</h3>
-            <h3>@Model.type</h3>
-        </div>
-        <div class="ValueBlock">
-            <h3>Gegevens</h3>
-            <h3>@Model.value</h3>
+<h2 class="title" style="margin-left: 15px;">Data bekijken</h2>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 Naam">
+                <h4>Naam:</h4>
+                <p>@Model.surname</p>
+            </div>
+            <div class="col-lg-2 BSN">
+                <h4>BSN:</h4>
+                <p>@Model.bsn</p>
+            </div>
+            <div class="col-lg-3 bDate">
+                <h4>Geboortedatum:</h4>
+                <p>@Model.birthDate</p>
+            </div>
+            <div class="col-lg-2 TypeData">
+                <h4>Type data:</h4>
+                <p>@Model.type</p>
+            </div>
+            <div class="col-lg-2 ValueBlock">
+                <h4>Gegevens:</h4>
+                <p>@Model.value</p>
+            </div>
         </div>
     </div>
-</div>
