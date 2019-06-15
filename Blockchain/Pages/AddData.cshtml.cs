@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Blockchain.Models.Cryptography;
 
 namespace Blockchain.Pages
 {
@@ -33,5 +34,15 @@ namespace Blockchain.Pages
         [Required]
         [Display(Name = "value")]
         public string value { get; set; }
+
+
+        public async Task<IActionResult> OnPostAsync(string name, string password, DateTime issuedon, DateTime issuedtill)
+        {
+
+            Key.Create(name, issuedon,issuedtill,password);
+
+            return RedirectToPage();
+        }
+
     }
 }
