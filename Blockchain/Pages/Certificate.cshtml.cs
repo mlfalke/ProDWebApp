@@ -12,19 +12,24 @@ namespace Blockchain.Pages
     public class CertificateModel : PageModel
     {
         [Required]
+        [Display(Name = "name")]
         public string name { get; set; }
         [Required]
+        [Display(Name = "password")]
         public string password { get; set; }
         [Required]
+        [Display(Name = "issuedon")]
         public DateTime issuedon { get; set; }
         [Required]
+        [Display(Name = "issuedtill")]
         public DateTime issuedtill { get; set; }
 
+
         
-       
-        public async Task<IActionResult> OnPostCertificate(string name, DateTime issuedon, DateTime issuedtill, string password)
+        public IActionResult OnPost([FromForm] string name, DateTime issuedon, DateTime issuedtill, string password)
         {
             
+
             Key.Create(name, issuedon, issuedtill, password);
             return RedirectToPage();
         }
