@@ -96,7 +96,7 @@ namespace Blockchain
                 // Hook up the Elapsed event for the timer. 
                 aTimer.Elapsed += OnTimedEvent;
                 aTimer.AutoReset = false;
-                aTimer.Interval = 1000;
+                aTimer.Interval = 10000;
                 aTimer.Enabled = true;
             }
         }

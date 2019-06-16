@@ -35,10 +35,10 @@ namespace Blockchain.Controllers
             //     heeftLopendTraject = ad.heeftLopendTraject,
             //     laatsteGesprek = ad.laatsteGesprek
             // };
-            Person person = new Person(ad.surname, ad.bsn, Convert.ToDateTime(ad.birthDate));
-            Data newData = new Data(ad.type, ad.value, person);
-            Block block = new Block(DateTime.Now, newData, person, Blockchain.companyList, Blockchain.hostCompany);
-            Blockchain.governmentChain.AddBlock(block);
+            // Person person = new Person(ad.surname, ad.bsn, Convert.ToDateTime(ad.birthDate));
+            // Data newData = new Data(ad.type, ad.value, person);
+            // Block block = new Block(DateTime.Now, newData, person, Blockchain.companyList, Blockchain.hostCompany,);
+            // Blockchain.governmentChain.AddBlock(block);
             // To do:
             // - Make a block
             // - Decide if we do 2nd or 3rd option in block-creation (right now the reading of the companies.json happens inside the function of Block())

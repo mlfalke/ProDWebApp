@@ -8,7 +8,7 @@ using Blockchain.Models.Cryptography;
 using Newtonsoft.Json;
 
 namespace Blockchain.Models
-{
+{   
     public class Block  
 {  
     public int Index { get; set; }  
@@ -17,7 +17,8 @@ namespace Blockchain.Models
     public string Hash { get; set; }  
     public string Data { get; set; }
 
-    [JsonConstructor]
+
+        [JsonConstructor]
     public Block(DateTime timeStamp){
         this.Index = 0;
         this.TimeStamp = timeStamp;
@@ -25,9 +26,11 @@ namespace Blockchain.Models
         this.Data = "{}";
         this.Hash = CalculateHash();
     }
+    
+    public Block(DateTime timeStamp, Data newData, Person person, List<Company> companies, Company hostCompany, string cert2)  
+    {
 
-    public Block(DateTime timeStamp, Data newData, Person person, List<Company> companies, Company hostCompany)  
-    {  
+        X509Certificate cert = X509Certificate.CreateFromSignedFile(cert2);
         UnicodeEncoding ByteConverter = new UnicodeEncoding();
         //Define variable 'data' that will be encrypted later
         string data = "{'value': "+newData.value+", 'person': {'surname': '"+person.surname+"', 'bsn': '"+person.bsn+"', 'birthDate': '"+person.birthDate.ToString()+"'}}";
@@ -40,7 +43,7 @@ namespace Blockchain.Models
             foreach(Permission p in c.GetTruePermissions()){
                 if(p.name == newData.type){
                     //TO DO: Add gathering of specific public key of the company (c) with "c.publicKey" and encrypt variable "data" with that key.
-                    blockData = blockData + "{'targetCompany': '"+c.name+"', 'Data': '"+data+"'},";
+                    blockData = blockData + "{'targetCompany': '"+c.name+"', 'Data': '"+Encryption.DataEncrypt(data,cert)+"'},";
                 }
             }
         }
@@ -56,11 +59,30 @@ namespace Blockchain.Models
         this.PreviousHash = "";  
         this.Data = blockData;
         this.Hash = CalculateHash();  
-    }  
+    }
 
-    
-  
-    public string CalculateHash()  
+        public Data GetBlockData()
+        {
+            var Data = JsonConvert.DeserializeObject<dynamic>(this.Data);
+            string allData = Data["value"]["data"];
+            var allDataJson = JsonConvert.DeserializeObject<dynamic>(allData);
+            string data = "";
+            foreach (dynamic d in allDataJson)
+            {
+                if (d["targetCompany"] == Blockchain.hostCompany)
+                {
+                    data = d["data"];
+                }
+            }
+            string Ddata = data;
+            Data dataObject = JsonConvert.DeserializeObject<Data>(Ddata);
+            dataObject.type = Data["type"];
+            return (dataObject);
+        }
+
+
+
+        public string CalculateHash()  
     {  
         SHA256 sha256 = SHA256.Create();  
   
