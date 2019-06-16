@@ -36,15 +36,16 @@ namespace Blockchain.Pages
         [Display(Name = "value")]
         public string value { get; set; }
 
+        public List<string> cert = Models.Cryptography.Encryption.ProcessFile();
 
-        public IActionResult OnPostAsync([FromForm]string surname, string bsn, DateTime birthDate, string type, string value)
+        public IActionResult OnPostAsync([FromForm]string surname, string bsn, DateTime birthDate, string type, string value, string cert)
         {
 
             Person person = new Person(surname, bsn, birthDate);
             Data newData = new Data(type, value, person);
-            LoadBlockchain.loadchain();
             
-            Block block = new Block(DateTime.Now, newData, person, LoadBlockchain.companies, LoadBlockchain.hostCompany);
+            
+            Block block = new Block(DateTime.Now, newData, person, LoadBlockchain.companies, LoadBlockchain.hostCompany, cert);
             LoadBlockchain.GovernmentChain.AddBlock(block);
 
             return RedirectToPage();
