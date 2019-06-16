@@ -42,10 +42,10 @@ namespace Blockchain.Pages
 
             Person person = new Person(surname, bsn, birthDate);
             Data newData = new Data(type, value, person);
-            LoadBlockchain.loadchain();
+            // LoadBlockchain.loadchain();
             
-            Block block = new Block(DateTime.Now, newData, person, LoadBlockchain.companies, LoadBlockchain.hostCompany);
-            LoadBlockchain.GovernmentChain.AddBlock(block);
+            Block block = new Block(DateTime.Now, newData, person, Blockchain.companyList, Blockchain.hostCompany);
+            Blockchain.governmentChain.AddBlock(block);
 
             return RedirectToPage();
         }

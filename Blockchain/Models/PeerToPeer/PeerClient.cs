@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using WebSocketSharp;
-
 namespace Blockchain.Models.PeerToPeer{
     public class P2PClient
     {
@@ -23,30 +22,27 @@ namespace Blockchain.Models.PeerToPeer{
                     else
                     {
                         Blockchainblock newChain = JsonConvert.DeserializeObject<Blockchainblock>(e.Data);
-                        if (newChain.IsValid() && newChain.Chain.Count > LoadBlockchain.GovernmentChain.Chain.Count)
+                        if (newChain.IsValid() && newChain.Chain.Count > Blockchain.governmentChain.Chain.Count)
                         {
                             List<Transaction> newTransactions = new List<Transaction>();
                             // newTransactions.AddRange(newChain.PendingTransactions);
                             // newTransactions.AddRange(Program.GovernmentChain.PendingTransactions);
 
                             // newChain.PendingTransactions = newTransactions;
-                            LoadBlockchain.GovernmentChain = newChain;
+                            Blockchain.governmentChain = newChain;
                         }
                     }
                 };
-                try
-                {
                     ws.Connect();
-                    ws.Send("Hi Server");
-                    ws.Send(JsonConvert.SerializeObject(LoadBlockchain.GovernmentChain));
-                }
-                catch (System.Exception Error)
-                {
-                    Console.WriteLine(Error);
-                    return false;
-                }
-                wsDict.Add(url, ws);
-                return true;
+                    if(ws.IsAlive){
+                        ws.Send("Hi Server");
+                        ws.Send(JsonConvert.SerializeObject(Blockchain.governmentChain));
+                        wsDict.Add(url, ws);
+                        return true;
+                    }else{
+                        return false;
+                    }
+                   
             }
             return true;
         }

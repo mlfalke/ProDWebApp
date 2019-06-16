@@ -15,7 +15,7 @@ using Org.BouncyCastle.Crypto.Prng;
 using Org.BouncyCastle.Crypto.Operators;
 using System.IO;
 using System;
-
+using Org.BouncyCastle;
 namespace Blockchain.Models.Cryptography
 {
     public class Key
@@ -37,7 +37,7 @@ namespace Blockchain.Models.Cryptography
         /// Static method used to create a certificate and return as a .net object
         /// </summary>
         
-        public static X509Certificate2 Create(string name, DateTime start, DateTime end, string userPassword, bool addtoStore = true, string exportDirectory = @"lib\Encryption\Certificates")
+        public static X509Certificate2 Create(string name, DateTime start, DateTime end, string userPassword, bool addtoStore = false, string exportDirectory = @"/home/dreabosman16/ProDWebApp/Certs")
         {
             // generate a key pair using RSA
             var generator = new RsaKeyPairGenerator();

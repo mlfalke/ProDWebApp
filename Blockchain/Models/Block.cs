@@ -17,7 +17,7 @@ namespace Blockchain.Models
     public string Hash { get; set; }  
     public string Data { get; set; }
 
-        [JsonConstructor]
+    [JsonConstructor]
     public Block(DateTime timeStamp){
         this.Index = 0;
         this.TimeStamp = timeStamp;

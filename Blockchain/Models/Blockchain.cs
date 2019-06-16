@@ -8,42 +8,42 @@ using Newtonsoft.Json;
 namespace Blockchain.Models
 {
 
-    public class LoadBlockchain
-    {
-        public static List<Company> companies { get;  set; }
-        public static Company hostCompany { get;  set; }
-        public static Server Serverslist;
-        public static Blockchainblock GovernmentChain { get; set; }
-        public static System.Security.Cryptography.X509Certificates.X509Certificate2 certificate { get; set; }
+    // public class LoadBlockchain
+    // {
+    //     public static List<Company> companies { get;  set; }
+    //     public static Company hostCompany { get;  set; }
+    //     public static Server Serverslist;
+    //     public static Blockchainblock GovernmentChain { get; set; }
+    //     public static System.Security.Cryptography.X509Certificates.X509Certificate2 certificate { get; set; }
 
-        public static void loadchain()
-        {
-            GovernmentChain = new Blockchainblock();
-            //FileStream filestreamCreate = new FileStream("Blockchain.txt", FileMode.OpenOrCreate);
+    //     public static void loadchain()
+    //     {
+    //         // GovernmentChain = new Blockchainblock();
+    //         //FileStream filestreamCreate = new FileStream("Blockchain.txt", FileMode.OpenOrCreate);
 
-            using (StreamReader r = new StreamReader("companies.json"))
-            {
-                string companiesJson = r.ReadToEnd();
-                companies = JsonConvert.DeserializeObject<List<Company>>(companiesJson);
-            }
+    //         using (StreamReader r = new StreamReader("companies.json"))
+    //         {
+    //             string companiesJson = r.ReadToEnd();
+    //             companies = JsonConvert.DeserializeObject<List<Company>>(companiesJson);
+    //         }
 
-            //Change to loadServerJson() (server output)
-            using (StreamReader r = new StreamReader("Server.json"))
-            {
-                string serverJson = r.ReadToEnd();
-                Serverslist = JsonConvert.DeserializeObject<Server>(serverJson);
-            }
-            //Search in lists of companies for host name to get hostCompany
-            foreach (Company c in companies)
-            {
-                if (c.name == Serverslist.Name)
-                {
-                    hostCompany = c;
-                    break;
-                }
-            }
-        }
-    }
+    //         //Change to loadServerJson() (server output)
+    //         using (StreamReader r = new StreamReader("Server.json"))
+    //         {
+    //             string serverJson = r.ReadToEnd();
+    //             Serverslist = JsonConvert.DeserializeObject<Server>(serverJson);
+    //         }
+    //         //Search in lists of companies for host name to get hostCompany
+    //         foreach (Company c in companies)
+    //         {
+    //             if (c.name == Serverslist.Name)
+    //             {
+    //                 hostCompany = c;
+    //                 break;
+    //             }
+    //         }
+    //     }
+    // }
     public class Blockchainblock
         {
 
