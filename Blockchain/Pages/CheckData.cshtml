@@ -8,29 +8,41 @@
 
 
 <div class="container">
-    @foreach (Blockchain.Models.Block std in Blockchain.Blockchain.governmentChain.Chain)
-    {
         <div class="row">
-            <div class="col-lg-2 Naam">
+            <div class="col-lg-2 Naam" style="padding-right: 15px;">
                 <h4>Naam:</h4>
-                <p>@std.Index</p>
-            </div>
-            <div class="col-lg-2 BSN">
+                @foreach (Blockchain.Models.Block std in Blockchain.Blockchain.governmentChain.Chain)
+                {
+                    <p style="word-wrap: break-word;">@std.Index</p>
+                }
+                </div>
+            <div class="col-lg-2 BSN" style="padding-right: 15px;">
                 <h4>BSN:</h4>
-                <p>@std.Hash</p>
+                @foreach (Blockchain.Models.Block std in Blockchain.Blockchain.governmentChain.Chain)
+                {
+                    <p style="word-wrap: break-word;">@std.Hash</p>
+                }
             </div>
-            <div class="col-lg-3 bDate">
+            <div class="col-lg-3 bDate" style="padding-right: 15px;">
                 <h4>Geboortedatum:</h4>
-                <p>@std.PreviousHash</p>
+                @foreach (Blockchain.Models.Block std in Blockchain.Blockchain.governmentChain.Chain)
+                {
+                    <p style="word-wrap: break-word;">@std.PreviousHash</p>
+                }
             </div>
-            <div class="col-lg-2 TypeData">
+            <div class="col-lg-2 TypeData" style="padding-right: 15px;">
                 <h4>Type data:</h4>
-                <p>@std.TimeStamp</p>
+                @foreach (Blockchain.Models.Block std in Blockchain.Blockchain.governmentChain.Chain)
+                {
+                    <p style="word-wrap: break-word;">@std.Data</p>
+                }
             </div>
-            <div class="col-lg-2 ValueBlock">
+            <div class="col-lg-2 ValueBlock" style="padding-right: 15px;">
                 <h4>Gegevens:</h4>
-                <p>@std.Data</p>
+                @foreach (Blockchain.Models.Block std in Blockchain.Blockchain.governmentChain.Chain)
+                {
+                    <p style="word-wrap: break-word;">@std.TimeStamp</p>
+                }
             </div>
         </div>
-    }
 </div>
