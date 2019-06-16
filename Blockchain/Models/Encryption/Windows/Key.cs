@@ -15,17 +15,14 @@ using Org.BouncyCastle.Crypto.Prng;
 using Org.BouncyCastle.Crypto.Operators;
 using System.IO;
 using System;
-using Org.BouncyCastle;
+
 namespace Blockchain.Models.Cryptography
 {
     public class Key
     {
-        
         //windows manier van opslaan RSA keys
-        #region Methods X509Certificate2 Create
-        private static readonly string pubkey = @"C:\Users\matth\Documents\Gitrepo\Blockchain\Blockchain_FINAL_PROJECT\ProDWebApp\Blockchain\Models\Encryption\Certificates\";
-        private static readonly string prikey = @"C:\Users\matth\Documents\Gitrepo\Blockchain\Blockchain_FINAL_PROJECT\ProDWebApp\Blockchain\Models\Encryption\CertPrivate\";
-        private static bool addtoStore = false;
+            #region Methods X509Certificate2 Create
+
         /// <summary>
         /// Adds a certificate to My store for the LocalMachine
         /// </summary>
@@ -40,7 +37,7 @@ namespace Blockchain.Models.Cryptography
         /// Static method used to create a certificate and return as a .net object
         /// </summary>
         
-        public static X509Certificate2 Create(string name, DateTime start, DateTime end, string userPassword)
+        public static X509Certificate2 Create(string name, DateTime start, DateTime end, string userPassword, bool addtoStore = false, string exportDirectory = @"Models\Encryption\Certificates")
         {
             // generate a key pair using RSA
             var generator = new RsaKeyPairGenerator();
@@ -62,7 +59,6 @@ namespace Blockchain.Models.Cryptography
             x509Generator.SetIssuerDN(certName);
             x509Generator.SetNotBefore(start);
             x509Generator.SetNotAfter(end);
-            
             // add the server authentication key usage
             var keyUsage = new KeyUsage(KeyUsage.KeyEncipherment);
             x509Generator.AddExtension(X509Extensions.KeyUsage, false, keyUsage.ToAsn1Object());
@@ -88,42 +84,39 @@ namespace Blockchain.Models.Cryptography
             builder.SetUseDerEncoding(true);
             builder.SetCertAlgorithm(PkcsObjectIdentifiers.Sha256WithRsaEncryption);
             builder.SetKeyAlgorithm(PkcsObjectIdentifiers.Sha256WithRsaEncryption);
-           
             builder.Build();
             // create a memorystream to hold the output
             var stream = new MemoryStream(10000);
             // create the individual store and set two entries for cert and key
             var store = new Pkcs12Store();
-            store.SetCertificateEntry("Created by: " + name, entry);
-            store.SetKeyEntry("Key version: " + name, keyEntry, new[] { entry });
+            store.SetCertificateEntry("Created by Blockchain", entry);
+            store.SetKeyEntry("Created by Blockchain", keyEntry, new[] { entry });
             store.Save(stream, userPassword.ToCharArray(), new SecureRandom());
 
              // Create the equivalent C# representation
             var cert = new X509Certificate2(stream.GetBuffer(), userPassword, X509KeyStorageFlags.Exportable);
             // set up the PEM writer too
-            if (pubkey != null)
+            if (exportDirectory != null)
             {
-                //Create a PEM file with the privatekey
                 //var textWriter = new StringWriter();
                 //var pemWriter = new PemWriter(textWriter);
                 //pemWriter.WriteObject(cerKp.Private, "DESEDE", userPassword.ToCharArray(), new SecureRandom());
+                
                 //pemWriter.Writer.Flush();
                 //string privateKeyPem = textWriter.ToString();
-                //using (var writer = new StreamWriter(Path.Combine(pubkey, cert.Thumbprint + ".pem")))
-                //    {
-                //        writer.WriteLine(privateKeyPem);
-                //    }
-
-
+                //using (var writer = new StreamWriter(Path.Combine(exportDirectory, cert.Thumbprint + ".pem")))
+                    //{
+                   //     writer.WriteLine(privateKeyPem);
+                    //}
                 // also export the certs - first the .pfx
                 byte[] privateKeyBytes = cert.Export(X509ContentType.Pfx, userPassword);
-                using (var writer = new FileStream(Path.Combine(prikey, cert.Thumbprint + ".pfx"), FileMode.OpenOrCreate, FileAccess.Write))
+                using (var writer = new FileStream(Path.Combine(@"Models\Encryption\CertPrivate", cert.Thumbprint + ".pfx"), FileMode.OpenOrCreate, FileAccess.Write))
                 {
                     writer.Write(privateKeyBytes, 0, privateKeyBytes.Length);
                 }
                 // also export the certs - then the .cer
                 byte[] publicKeyBytes = cert.Export(X509ContentType.Cert);
-                using (var writer = new FileStream(Path.Combine(pubkey, cert.Thumbprint + ".cer"), FileMode.OpenOrCreate, FileAccess.Write))
+                using (var writer = new FileStream(Path.Combine(exportDirectory, cert.Thumbprint + ".cer"), FileMode.OpenOrCreate, FileAccess.Write))
                 {
                     writer.Write(publicKeyBytes, 0, publicKeyBytes.Length);
                 }
