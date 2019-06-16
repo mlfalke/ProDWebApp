@@ -13,22 +13,8 @@ namespace Blockchain.Pages
     {
         public void OnGet()
         {
-            if (Blockchain.governmentChain != null)
-            {
-                //To do:
-                // - Something has to happen when chain is invalid
-                // - (Possibly with hashing) check if own GovernmentChain.txt is same as others
-                if (! Blockchain.governmentChain.IsValid())
-                {
-                    //What happens when it's invalid?
-                }
-            }
-            //If GovernmentChain doesn't exist, create new:
-            using (StreamReader r = new StreamReader(@"GovernmentChain.json"))
-            {
-                string chainJson = r.ReadToEnd();
-                Blockchain.governmentChain = JsonConvert.DeserializeObject<Models.Blockchainblock>(chainJson);
-            }
+         
+          
         }
     }
 }
