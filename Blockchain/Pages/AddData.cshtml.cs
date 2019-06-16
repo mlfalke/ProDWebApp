@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Blockchain.Models.Cryptography;
 using Blockchain.Models;
+using Newtonsoft.Json;
 
 namespace Blockchain.Pages
 {
@@ -46,7 +47,10 @@ namespace Blockchain.Pages
             // LoadBlockchain.loadchain();
             
             Block block = new Block(DateTime.Now, newData, person, Blockchain.companyList, Blockchain.hostCompany,cert);
+            
             Blockchain.governmentChain.AddBlock(block);
+            
+            Blockchain.client.Broadcast(JsonConvert.SerializeObject(Blockchain.governmentChain));
 
             return RedirectToPage();
         }
