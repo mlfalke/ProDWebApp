@@ -41,6 +41,7 @@ namespace Blockchain.Models.Cryptography
         {
             using (RSA rsa = cert.GetRSAPrivateKey())
             {
+                
                 UnicodeEncoding ByteConverter = new UnicodeEncoding();
                 byte[] Bdata = Convert.FromBase64String(data);
 
@@ -55,7 +56,7 @@ namespace Blockchain.Models.Cryptography
         // Insert logic for processing found files here.
         public static List<string> ProcessFile()
         {
-            string targetDirectory = @"/home/dreabosman16/ProDWebApp/Blockchain/crypt";
+            string targetDirectory = @"Models\Encryption\Certificates";
             // Process the list of files found in the directory.
             string[] fileEntries = Directory.GetFiles(targetDirectory);
             List<string> lijst = new List<string>();
@@ -64,6 +65,22 @@ namespace Blockchain.Models.Cryptography
             }
             return lijst;
             
+
+        }
+
+
+        public static List<string> Prikey()
+        {
+            string targetDirectory = @"Models\Encryption\CertPrivate";
+            // Process the list of files found in the directory.
+            string[] fileEntries = Directory.GetFiles(targetDirectory);
+            List<string> lijst = new List<string>();
+            foreach (string fileName in fileEntries)
+            {
+                lijst.Add(fileName);
+            }
+            return lijst;
+
 
         }
 
