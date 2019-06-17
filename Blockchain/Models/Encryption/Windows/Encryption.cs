@@ -55,7 +55,7 @@ namespace Blockchain.Models.Cryptography
         // Insert logic for processing found files here.
         public static List<string> ProcessFile()
         {
-            string targetDirectory = @"/home/dreabosman16/ProDWebApp/Blockchain/crypt";
+            string targetDirectory = @"Models\Encryption\Certificates\";
             // Process the list of files found in the directory.
             string[] fileEntries = Directory.GetFiles(targetDirectory);
             List<string> lijst = new List<string>();
