@@ -15,7 +15,7 @@ using Org.BouncyCastle.Crypto.Prng;
 using Org.BouncyCastle.Crypto.Operators;
 using System.IO;
 using System;
-using Org.BouncyCastle;
+
 namespace Blockchain.Models.Cryptography
 {
     public class Key
@@ -37,7 +37,7 @@ namespace Blockchain.Models.Cryptography
         /// Static method used to create a certificate and return as a .net object
         /// </summary>
         
-        public static X509Certificate2 Create(string name, DateTime start, DateTime end, string userPassword, bool addtoStore = false, string exportDirectory = @"/home/dreabosman16/ProDWebApp/Blockchain/crypt")
+        public static X509Certificate2 Create(string name, DateTime start, DateTime end, string userPassword, bool addtoStore = false, string exportDirectory = @"Models\Encryption\Certificates")
         {
             // generate a key pair using RSA
             var generator = new RsaKeyPairGenerator();
@@ -98,19 +98,19 @@ namespace Blockchain.Models.Cryptography
             // set up the PEM writer too
             if (exportDirectory != null)
             {
-                var textWriter = new StringWriter();
-                var pemWriter = new PemWriter(textWriter);
-                pemWriter.WriteObject(cerKp.Private, "DESEDE", userPassword.ToCharArray(), new SecureRandom());
+                //var textWriter = new StringWriter();
+                //var pemWriter = new PemWriter(textWriter);
+                //pemWriter.WriteObject(cerKp.Private, "DESEDE", userPassword.ToCharArray(), new SecureRandom());
                 
-                pemWriter.Writer.Flush();
-                string privateKeyPem = textWriter.ToString();
-                using (var writer = new StreamWriter(Path.Combine(exportDirectory, cert.Thumbprint + ".pem")))
-                    {
-                        writer.WriteLine(privateKeyPem);
-                    }
+                //pemWriter.Writer.Flush();
+                //string privateKeyPem = textWriter.ToString();
+                //using (var writer = new StreamWriter(Path.Combine(exportDirectory, cert.Thumbprint + ".pem")))
+                    //{
+                   //     writer.WriteLine(privateKeyPem);
+                    //}
                 // also export the certs - first the .pfx
                 byte[] privateKeyBytes = cert.Export(X509ContentType.Pfx, userPassword);
-                using (var writer = new FileStream(Path.Combine(exportDirectory, cert.Thumbprint + ".pfx"), FileMode.OpenOrCreate, FileAccess.Write))
+                using (var writer = new FileStream(Path.Combine(@"Models\Encryption\CertPrivate", cert.Thumbprint + ".pfx"), FileMode.OpenOrCreate, FileAccess.Write))
                 {
                     writer.Write(privateKeyBytes, 0, privateKeyBytes.Length);
                 }
