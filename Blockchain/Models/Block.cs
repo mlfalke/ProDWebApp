@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using Blockchain.Models.Cryptography;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Blockchain.Models
 {   
@@ -30,20 +31,20 @@ namespace Blockchain.Models
     public Block(DateTime timeStamp, Data newData, Person person, List<Company> companies, Company hostCompany, string cert2)  
     {
 
-        X509Certificate cert = X509Certificate.CreateFromSignedFile(cert2);
+            X509Certificate2 cert = new X509Certificate2(cert2, "Wachtwoord");
         UnicodeEncoding ByteConverter = new UnicodeEncoding();
         //Define variable 'data' that will be encrypted later
         string data = "{'value': "+newData.value+", 'person': {'surname': '"+person.surname+"', 'bsn': '"+person.bsn+"', 'birthDate': '"+person.birthDate.ToString()+"'}}";
         //Change data to byte[] in order to encrypt it later
         byte[] Bdata = ByteConverter.GetBytes(data);
-        string blockData = "{'type': '"+newData.type+"', 'sender': '"+hostCompany.name+"', 'value': [";
+        string blockData = "{'type': '"+newData.type+"', 'sender': '"+hostCompany.name+"', 'encryptedValues': [";
         
         //Check if companies have permission to read the data. If so, encrypt the data with their keys and add it to JSON-formatted string blockData
         foreach(Company c in companies){
             foreach(Permission p in c.GetTruePermissions()){
                 if(p.name == newData.type){
                     //TO DO: Add gathering of specific public key of the company (c) with "c.publicKey" and encrypt variable "data" with that key.
-                    blockData = blockData + "{'targetCompany': '"+c.name+"', 'Data': '"+Encryption.DataEncrypt(data,cert)+"'},";
+                    blockData = blockData + "{'targetCompany': '"+c.name+"', 'encryptedData': '"+Encryption.DataEncrypt(data,cert)+"'},";
                 }
             }
         }
@@ -63,21 +64,24 @@ namespace Blockchain.Models
 
         public Data GetBlockData()
         {
-            var Data = JsonConvert.DeserializeObject<dynamic>(this.Data);
-            string allData = Data["value"]["data"];
-            var allDataJson = JsonConvert.DeserializeObject<dynamic>(allData);
-            string data = "";
-            foreach (dynamic d in allDataJson)
+            if(this.Data!="{}")
             {
-                if (d["targetCompany"] == Blockchain.hostCompany)
-                {
-                    data = d["data"];
-                }
+                Blockdata Data = JsonConvert.DeserializeObject<Blockdata>(this.Data);
+                // <dynamic>(this.Data);
+                EncryptedValue[] encryptedValues = Data.encryptedValues;
+                foreach(EncryptedValue eV in encryptedValues){
+                    if(eV.targetCompany == Blockchain.hostCompany.name){
+                        X509Certificate2 cert = new X509Certificate2(@"C:\Users\matth\Documents\Gitrepo\Blockchain\Blockchain_FINAL_PROJECT\ProDWebApp\Blockchain\Models\Encryption\CertPrivate\EE06F0A054F223238D34D7320F0C7B33DBDC2D7D.pfx","Wachtwoord",X509KeyStorageFlags.Exportable);
+                        
+                        string decryptedDataString = Encryption.DataDecrypt(eV.encryptedData,cert);
+                        Data decryptedData = JsonConvert.DeserializeObject<Data>(decryptedDataString);
+                        decryptedData.type = Data.type;
+                        return(decryptedData);
+                    }        
+                }               
             }
-            string Ddata = data;
-            Data dataObject = JsonConvert.DeserializeObject<Data>(Ddata);
-            dataObject.type = Data["type"];
-            return (dataObject);
+            return new Data("","",new Person("empty","empty",DateTime.Now));
+            
         }
 
 

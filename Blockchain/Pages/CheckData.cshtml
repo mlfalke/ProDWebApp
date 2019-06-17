@@ -34,7 +34,7 @@
                 <h4>Type data:</h4>
                 @foreach (Blockchain.Models.Block std in Blockchain.Blockchain.governmentChain.Chain)
                 {
-                    <p style="word-wrap: break-word;">@std.Data</p>
+                    <p style="word-wrap: break-word;">@std.GetBlockData()</p>
                 }
             </div>
             <div class="col-lg-2 ValueBlock" style="padding-right: 15px;">

@@ -37,7 +37,7 @@ namespace Blockchain.Models.Cryptography
         /// Static method used to create a certificate and return as a .net object
         /// </summary>
         
-        public static X509Certificate2 Create(string name, DateTime start, DateTime end, string userPassword, bool addtoStore = false, string exportDirectory = @"Models\Encryption\Certificates")
+        public static X509Certificate2 Create(string name, DateTime start, DateTime end, string userPassword, bool addtoStore = false, string exportDirectory = @"Models/Encryption/Certificates")
         {
             // generate a key pair using RSA
             var generator = new RsaKeyPairGenerator();
@@ -110,7 +110,7 @@ namespace Blockchain.Models.Cryptography
                     //}
                 // also export the certs - first the .pfx
                 byte[] privateKeyBytes = cert.Export(X509ContentType.Pfx, userPassword);
-                using (var writer = new FileStream(Path.Combine(@"Models\Encryption\CertPrivate", cert.Thumbprint + ".pfx"), FileMode.OpenOrCreate, FileAccess.Write))
+                using (var writer = new FileStream(Path.Combine(@"Models/Encryption/CertPrivate", cert.Thumbprint + ".pfx"), FileMode.OpenOrCreate, FileAccess.Write))
                 {
                     writer.Write(privateKeyBytes, 0, privateKeyBytes.Length);
                 }
