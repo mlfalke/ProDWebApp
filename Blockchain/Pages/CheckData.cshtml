@@ -1,6 +1,48 @@
 ﻿@page
-@model CheckDataModel
+@model Blockchain.Pages.CheckDataModel
 @{
-    ViewData["Title"] = "Data bekijken";
+    ViewData["Title"] = "CheckData";
 }
-<h2>@ViewData["Title"]</h2>
+
+<h2 class="title" style="margin-left: 15px;">Data bekijken</h2>
+
+
+<div class="container">
+        <div class="row">
+            <div class="col-lg-2 Naam" style="padding-right: 15px;">
+                <h4>Naam:</h4>
+                @foreach (Blockchain.Models.Block std in Blockchain.Blockchain.governmentChain.Chain)
+                {
+                    <p style="word-wrap: break-word;">@std.Index</p>
+                }
+                </div>
+            <div class="col-lg-2 BSN" style="padding-right: 15px;">
+                <h4>BSN:</h4>
+                @foreach (Blockchain.Models.Block std in Blockchain.Blockchain.governmentChain.Chain)
+                {
+                    <p style="word-wrap: break-word;">@std.Hash</p>
+                }
+            </div>
+            <div class="col-lg-3 bDate" style="padding-right: 15px;">
+                <h4>Geboortedatum:</h4>
+                @foreach (Blockchain.Models.Block std in Blockchain.Blockchain.governmentChain.Chain)
+                {
+                    <p style="word-wrap: break-word;">@std.PreviousHash</p>
+                }
+            </div>
+            <div class="col-lg-2 TypeData" style="padding-right: 15px;">
+                <h4>Type data:</h4>
+                @foreach (Blockchain.Models.Block std in Blockchain.Blockchain.governmentChain.Chain)
+                {
+                    <p style="word-wrap: break-word;">@std.Data</p>
+                }
+            </div>
+            <div class="col-lg-2 ValueBlock" style="padding-right: 15px;">
+                <h4>Gegevens:</h4>
+                @foreach (Blockchain.Models.Block std in Blockchain.Blockchain.governmentChain.Chain)
+                {
+                    <p style="word-wrap: break-word;">@std.TimeStamp</p>
+                }
+            </div>
+        </div>
+</div>

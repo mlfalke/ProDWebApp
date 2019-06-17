@@ -1,16 +1,16 @@
 ﻿@page
-@model AddDataModel
+@model Blockchain.Pages.AddDataModel
 @{
-    ViewData["Title"] = "Add Data";
+    ViewData["Title"] = "AddData";
 }
 
 <div class="container">
     <div class="row">
         <div class="DataForm">
-            <div class="AddDataForm" method="post" asp-controller="AddBlock" asp-action="AddData">
+            <form class="AddDataForm" method="post" asp-controller="AddBlock" asp-action="AddData">
                 <h2>Data toevoegen</h2>
                 <div class="form-group">
-                    <label asp-for="surname" class="surname">Naam:</label>
+                    <label asp-for="surname" class="surname">Achternaam:</label>
                     <input asp-for="surname" class="form-control" maxlength="256" />
                     <span asp-validation-for="surname" class="text-danger"></span>
                 </div>
@@ -20,92 +20,42 @@
                     <span asp-validation-for="bsn" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="birthDate" class="birthDate">GeboorteDatum:</label>
+                    <label asp-for="birthDate" class="birthDate">Geboortedatum (dd-mm-jjjj):</label>
                     <input asp-for="birthDate" class="form-control" maxlength="16" />
                     <span asp-validation-for="birthDate" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="antecedenten" class="antecedenten">Antecedenten:</label>
-                    <input asp-for="antecedenten" class="form-control" maxlength="8" />
-                    <span asp-validation-for="antecedenten" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="aanhoudingen" class="aanhoudingen">Aanhoudingen:</label>
-                    <input asp-for="aanhoudingen" class="form-control" maxlength="8" />
-                    <span asp-validation-for="aanhoudingen" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="heeftISDMaatregel" class="heeftISDMaatregel">Heeft ISD Maatregel:</label>
-                    <select asp-for="heeftISDMaatregel" class="form-control">
-                        <option value="ISDJa">Ja</option>
-                        <option value="ISDNee">Nee</option>
+                    <label asp-for="type" class="type">Type data:</label>
+                    <select asp-for="type" class="form-control">
+                        <option value="antecedenten">Antecedenten (getal)</option>
+                        <option value="aanhoudingen">Aanhoudingen (getal)</option>
+                        <option value="heeftISDMaatregel">Heeft ISD Maatregel (ja/nee)</option>
+                        <option value="heeftIdBewijs">Heeft ID-Bewijs (ja/nee)</option>
+                        <option value="heeftLopendTraject">Heeft Lopend Traject (ja/nee)</option>
+                        <option value="heeftOnderzoekRad">Heeft Onderzoek Radicalen (ja/nee)</option>
+                        <option value="heeftUitkering">Heeft Uitkering (ja/nee)</option>
+                        <option value="laatsteGesprek">Laatste Gesprek (datum: dd-mm-jjjj)</option>
+                        <option value="meldingenRad">Meldingen Radicalen (getal)</option>
+                        <option value="sepots">Sepots (getal)</option>
+                        <option value="zitInGroepsAanpak">Zit In Groepsaanpak (ja/nee)</option>
                     </select>
-                    <span asp-validation-for="heeftISDMaatregel"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="heeftOnderzoekRad" class="heeftOnderzoekRad">Heeft Onderzoek Radicalen:</label>
-                    <select asp-for="heeftOnderzoekRad" class="form-control">
-                        <option value="RadJa">Ja</option>
-                        <option value="RadNee">Nee</option>
-                    </select>
-                    <span asp-validation-for="heeftOnderzoekRad"></span>
+                    <label asp-for="value" class="value">Gegevens:</label>
+                    <input asp-for="value" class="form-control" maxlength="16" />
+                    <span asp-validation-for="value" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="sepots" class="sepots">Sepots:</label>
-                    <input asp-for="sepots" class="form-control" maxlength="8" />
-                    <span asp-validation-for="sepots" class="text-danger"></span>
+                <div id="cert" class="form-group">
+                    @Html.LabelFor(x => Model.cert, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(x => Model.cert, new SelectList(Model.cert, "Value"), htmlAttributes: new { @class = "form-control", id = "cert" })
+                        @Html.ValidationMessageFor(x => x.cert, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label asp-for="lopendeDossiers" class="lopendeDossiers">Lopende Dossiers:</label>
-                    <input asp-for="lopendeDossiers" class="form-control" maxlength="8" />
-                    <span asp-validation-for="lopendeDossiers" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="heeftUitkering" class="heeftUitkering">Heeft Uitkering:</label>
-                    <select asp-for="heeftUitkering" class="form-control">
-                        <option value="UitJa">Ja</option>
-                        <option value="UitNee">Nee</option>
-                    </select>
-                    <span asp-validation-for="heeftUitkering"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="meldingenRad" class="meldingenRad">Meldingen Radicalen:</label>
-                    <input asp-for="meldingenRad" class="form-control" maxlength="8" />
-                    <span asp-validation-for="meldingenRad" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="zitInGroepsAanpak" class="zitInGroepsAanpak">Zit in Groepsaanpak:</label>
-                    <select asp-for="zitInGroepsAanpak" class="form-control">
-                        <option value="GrpJa">Ja</option>
-                        <option value="GrpNee">Nee</option>
-                    </select>
-                    <span asp-validation-for="zitInGroepsAanpak"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="heeftIdBewijs" class="heeftIdBewijs">Heeft ID Bewijs:</label>
-                    <select asp-for="heeftIdBewijs" class="form-control">
-                        <option value="IDJa">Ja</option>
-                        <option value="IDNee">Nee</option>
-                    </select>
-                    <span asp-validation-for="heeftIdBewijs"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="heeftLopendTraject" class="heeftLopendTraject">Loopt Traject:</label>
-                    <select asp-for="heeftLopendTraject" class="form-control">
-                        <option value="TraJa">Ja</option>
-                        <option value="TraNee">Nee</option>
-                    </select>
-                    <span asp-validation-for="heeftLopendTraject"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="laatsteGesprek" class="laatsteGesprek">Meldingen Radicalen:</label>
-                    <input asp-for="laatsteGesprek" class="form-control" maxlength="16" />
-                    <span asp-validation-for="laatsteGesprek" class="text-danger"></span>
-                </div>
-                <div>
-                    <input type="submit" value="Akkoord" class="btn btn-primary" />
-                </div>
-            </div>
+                    <div>
+                        <input type="submit" value="Akkoord" class="btn btn-primary" />
+                    </div>
+            </form>
         </div>
     </div>
 </div>

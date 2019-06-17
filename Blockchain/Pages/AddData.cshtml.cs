@@ -5,6 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Blockchain.Models.Cryptography;
+using Blockchain.Models;
+using Newtonsoft.Json;
 
 namespace Blockchain.Pages
 {
@@ -24,48 +27,32 @@ namespace Blockchain.Pages
         [Required]
         [MaxLength(16)]
         [Display(Name = "birthDate")]
-        public string birthDate { get; set; }
+        public DateTime birthDate { get; set; }
 
         [Required]
-        [MaxLength(8)]
-        [Display(Name = "antecedenten")]
-        public string antecedenten { get; set; }
+        [Display(Name = "type")]
+        public string type { get; set; }
 
         [Required]
-        [MaxLength(8)]
-        [Display(Name = "aanhoudingen")]
-        public string aanhoudingen { get; set; }
+        [Display(Name = "value")]
+        public string value { get; set; }
 
-        public string heeftISDMaatregel { get; set; }
+        public List<string> cert = Models.Cryptography.Encryption.ProcessFile();
 
-        public string heeftOnderzoekRad { get; set; }
+        public IActionResult OnPostAsync([FromForm]string surname, string bsn, DateTime birthDate, string type, string value, string cert)
+        {
 
-        [Required]
-        [MaxLength(8)]
-        [Display(Name = "sepots")]
-        public string sepots { get; set; }
+            Person person = new Person(surname, bsn, birthDate);
+            Data newData = new Data(type, value, person);
+            // LoadBlockchain.loadchain();
+            
+            Block block = new Block(DateTime.Now, newData, person, Blockchain.companyList, Blockchain.hostCompany,cert);
+            
+            Blockchain.governmentChain.AddBlock(block);
+            
+            Blockchain.client.Broadcast(JsonConvert.SerializeObject(Blockchain.governmentChain));
 
-        [Required]
-        [MaxLength(8)]
-        [Display(Name = "lopendeDossiers")]
-        public string lopendeDossiers { get; set; }
-
-        public string heeftUitkering { get; set; }
-
-        [Required]
-        [MaxLength(8)]
-        [Display(Name = "meldingenRad")]
-        public string meldingenRad { get; set; }
-
-        public string zitInGroepsAanpak { get; set; }
-
-        public string heeftIdBewijs { get; set; }
-
-        public string heeftLopendTraject { get; set; }
-
-        [Required]
-        [MaxLength(16)]
-        [Display(Name = "laatsteGesprek")]
-        public string laatsteGesprek { get; set; }
+            return RedirectToPage();
+        }
     }
 }

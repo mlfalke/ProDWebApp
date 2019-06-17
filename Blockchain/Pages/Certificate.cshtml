@@ -1,0 +1,38 @@
+﻿@page
+@model global::Blockchain.Pages.CertificateModel
+@{
+    ViewData["Title"] = "Certificate";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="DataForm">
+            <form  class="CertificateForm" method="post" name="input"  asp-action="OnPost" asp-controller="Certificate">
+                <h2>Data toevoegen</h2>
+                <div class="form-group">
+                    <label asp-for="name" class="name">name:</label>
+                    <input asp-for="name" class="form-control" maxlength="52" />
+                    <span asp-validation-for="name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="issuedon" class="issuedon">issuedon:</label>
+                    <input asp-for="issuedon" class="form-control" />
+                    <span asp-validation-for="issuedon" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="issuedtill" class="issuetill">issuedtill:</label>
+                    <input asp-for="issuedtill" class="form-control" />
+                    <span asp-validation-for="issuedtill" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="password" class="value">Password:</label>
+                    <input asp-for="password" class="form-control" maxlength="16" />
+                    <span asp-validation-for="password" class="text-danger"></span>
+                </div>
+                <div>
+                    <input type="submit" value="Akkoord" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
