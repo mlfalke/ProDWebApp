@@ -37,7 +37,7 @@ namespace Blockchain.Models.Cryptography
         /// Static method used to create a certificate and return as a .net object
         /// </summary>
         
-        public static X509Certificate2 Create(string name, DateTime start, DateTime end, string userPassword, bool addtoStore = false, string exportDirectory = @"/home/dreabosman16/ProDWebApp/Blockchain/crypt")
+        public static X509Certificate2 Create(string name, DateTime start, DateTime end, string userPassword, bool addtoStore = false, string exportDirectory = @"C:\Users\chris\Documents\GitKraken\ProDWebApp\Blockchain\Models\Encryption\Certificates\")
         {
             // generate a key pair using RSA
             var generator = new RsaKeyPairGenerator();
