@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Blockchain.Controllers;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Blockchain.Models.Cryptography;
 
 namespace Blockchain.Pages
 {
@@ -20,6 +21,7 @@ namespace Blockchain.Pages
         public string type { get; set; }
 
         public string value { get; set; }
+        public List<string> cert = Encryption.Prikey();
 
         public void OnGet() 
             {

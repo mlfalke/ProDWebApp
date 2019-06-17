@@ -1,12 +1,12 @@
 { 
     "Port": 6000,
     "Ip": "0.0.0.0",
-    "Name": "Gemeente",
+    "Name": "Politie",
     "Nodes": [
         {
             "Port": 6001,
             "Ip": "0.0.0.0",
-            "Name": "Politie"
+            "Name": "Gemeente"
         },
         {
             "Port": 6002,

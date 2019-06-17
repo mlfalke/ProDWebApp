@@ -56,7 +56,7 @@ namespace Blockchain.Models.Cryptography
         // Insert logic for processing found files here.
         public static List<string> ProcessFile()
         {
-            string targetDirectory = @"Models\Encryption\Certificates";
+            string targetDirectory = @"Models/Encryption/Certificates";
             // Process the list of files found in the directory.
             string[] fileEntries = Directory.GetFiles(targetDirectory);
             List<string> lijst = new List<string>();
@@ -71,7 +71,7 @@ namespace Blockchain.Models.Cryptography
 
         public static List<string> Prikey()
         {
-            string targetDirectory = @"Models\Encryption\CertPrivate";
+            string targetDirectory = @"Models/Encryption/CertPrivate";
             // Process the list of files found in the directory.
             string[] fileEntries = Directory.GetFiles(targetDirectory);
             List<string> lijst = new List<string>();
