@@ -34,7 +34,6 @@ namespace Blockchain.Models
             X509Certificate2 cert = new X509Certificate2(cert2, "Wachtwoord");
         UnicodeEncoding ByteConverter = new UnicodeEncoding();
         //Define variable 'data' that will be encrypted later
-        string data = "{'value': "+newData.value+", 'person': {'surname': '"+person.surname+"', 'bsn': '"+person.bsn+"', 'birthDate': '"+person.birthDate.ToString()+"'}}";
         //Change data to byte[] in order to encrypt it later
         byte[] Bdata = ByteConverter.GetBytes(data);
         string blockData = "{'type': '"+newData.type+"', 'sender': '"+hostCompany.name+"', 'encryptedValues': [";
@@ -43,8 +42,9 @@ namespace Blockchain.Models
         foreach(Company c in companies){
             foreach(Permission p in c.GetTruePermissions()){
                 if(p.name == newData.type){
-                    //TO DO: Add gathering of specific public key of the company (c) with "c.publicKey" and encrypt variable "data" with that key.
-                    blockData = blockData + "{'targetCompany': '"+c.name+"', 'encryptedData': '"+Encryption.DataEncrypt(data,cert)+"'},";
+                        //TO DO: Add gathering of specific public key of the company (c) with "c.publicKey" and encrypt variable "data" with that key.
+                        string data = "{'value': " + Encryption.DataEncrypt(newData.value, cert) + ", 'person': {'surname': '" + Encryption.DataEncrypt(person.surname, cert) + "', 'bsn': '" + Encryption.DataEncrypt(person.bsn, cert) + "', 'birthDate': '" + Encryption.DataEncrypt(person.birthDate.ToString(), cert) + "'}}";
+                        blockData = blockData + "{'targetCompany': '"+c.name+"', 'encryptedData': '"+data+"'},";
                 }
             }
         }
@@ -72,10 +72,8 @@ namespace Blockchain.Models
                 foreach(EncryptedValue eV in encryptedValues){
                     if(eV.targetCompany == Blockchain.hostCompany.name){
                         X509Certificate2 cert = new X509Certificate2(@"C:\Users\matth\Documents\Gitrepo\Blockchain\Blockchain_FINAL_PROJECT\ProDWebApp\Blockchain\Models\Encryption\CertPrivate\EE06F0A054F223238D34D7320F0C7B33DBDC2D7D.pfx","Wachtwoord",X509KeyStorageFlags.Exportable);
-                        
-                        string decryptedDataString = Encryption.DataDecrypt(eV.encryptedData,cert);
-                        Data decryptedData = JsonConvert.DeserializeObject<Data>(decryptedDataString);
-                        decryptedData.type = Data.type;
+                        Data encryptedData = JsonConvert.DeserializeObject<Data>(eV.encryptedData);
+                        Data decryptedData = new Data(Data.type, Encryption.DataDecrypt(encryptedData.value, cert), new Person(Encryption.DataDecrypt(encryptedData.person.surname, cert), Encryption.DataDecrypt(encryptedData.person.bsn, cert), Convert.ToDateTime(Encryption.DataDecrypt(encryptedData.person.birthDate.ToString(), cert))));
                         return(decryptedData);
                     }        
                 }               

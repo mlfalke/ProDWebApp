@@ -154,7 +154,7 @@ namespace Blockchain.Models
                     dataList.Add(b.GetBlockData());
                 }
                 return (dataList);
-            }
+            }   
 
             public IList<Block> GetBlocksByType(string type)
             {
