@@ -37,7 +37,7 @@ namespace Blockchain.Pages
         [Display(Name = "value")]
         public string value { get; set; }
 
-        public List<string> cert = Encryption.ProcessFile();
+        public List<string> cert = Models.Cryptography.Encryption.ProcessFile();
 
         public IActionResult OnPostAsync([FromForm]string surname, string bsn, DateTime birthDate, string type, string value, string cert)
         {

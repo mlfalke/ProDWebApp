@@ -15,10 +15,4 @@
     <PackageReference Include="WebSocketSharp-netstandard" Version="1.0.1" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Models\Encryption\Certificates\" />
-    <Folder Include="Models\Encryption\CertPrivate\" />
-  </ItemGroup>
-
 </Project>
