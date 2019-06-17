@@ -13,27 +13,20 @@ namespace Blockchain.Models.Cryptography
 {
     public class Encryption
     {
-        public static string DataEncrypt(string data, X509Certificate cert)
+        public static string DataEncrypt(string data, X509Certificate2 cert)
         {
 
+            using (RSA rsa = cert.GetRSAPublicKey())
+            {
 
-            byte[] pubkey = cert.GetPublicKey();
-            RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-            //Create a new instance of RSAParameters.
-            RSAParameters RSAKeyInfo = new RSAParameters();
+                UnicodeEncoding ByteConverter = new UnicodeEncoding();
+                byte[] Bdata = ByteConverter.GetBytes(data);
 
-            //Set RSAKeyInfo to the public key values. 
-            RSAKeyInfo.Modulus = pubkey;
-            RSAKeyInfo.Exponent = cert.GetKeyAlgorithmParameters();
+                byte[] decryptedData = rsa.Encrypt(Bdata,RSAEncryptionPadding.OaepSHA256);
+                string decryptedDataS = Convert.ToBase64String(decryptedData);
+                return decryptedDataS;
+            }
             
-            RSA.ImportParameters(RSAKeyInfo);
-            
-      
-            UnicodeEncoding ByteConverter = new UnicodeEncoding();
-            byte[] Bdata = ByteConverter.GetBytes(data);
-            byte[] encryptedData = RSA.Encrypt(Bdata, RSAEncryptionPadding.Pkcs1);
-            string encryptedDataS = Convert.ToBase64String(encryptedData);
-            return encryptedDataS;
             
         }
 
@@ -45,8 +38,8 @@ namespace Blockchain.Models.Cryptography
                 UnicodeEncoding ByteConverter = new UnicodeEncoding();
                 byte[] Bdata = Convert.FromBase64String(data);
 
-                byte[] decryptedData = rsa.Decrypt(Bdata, RSAEncryptionPadding.Pkcs1);
-                string decryptedDataS = ByteConverter.GetString(decryptedData);
+                byte[] decryptedData = rsa.Decrypt(Bdata, RSAEncryptionPadding.OaepSHA256);
+                string decryptedDataS = Convert.ToBase64String(decryptedData);
                 return decryptedDataS;
             }
 
@@ -56,7 +49,7 @@ namespace Blockchain.Models.Cryptography
         // Insert logic for processing found files here.
         public static List<string> ProcessFile()
         {
-            string targetDirectory = @"Models/Encryption/Certificates";
+            string targetDirectory = @"Models/Encryption/CertPrivate";
             // Process the list of files found in the directory.
             string[] fileEntries = Directory.GetFiles(targetDirectory);
             List<string> lijst = new List<string>();
