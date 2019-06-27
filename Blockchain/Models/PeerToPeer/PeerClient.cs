@@ -21,16 +21,23 @@ namespace Blockchain.Models.PeerToPeer{
                     }
                     else
                     {
-                        Blockchainblock newChain = JsonConvert.DeserializeObject<Blockchainblock>(e.Data);
-                        if (newChain.IsValid() && newChain.Chain.Count > Blockchain.governmentChain.Chain.Count)
-                        {
-                            List<Transaction> newTransactions = new List<Transaction>();
-                            // newTransactions.AddRange(newChain.PendingTransactions);
-                            // newTransactions.AddRange(Program.GovernmentChain.PendingTransactions);
 
-                            // newChain.PendingTransactions = newTransactions;
+                        Blockchainblock newChain = JsonConvert.DeserializeObject<Blockchainblock>(e.Data);
+                        if(Blockchain.FirstRunServer==false){
+                            if (newChain.IsValid() && newChain.Chain.Count > Blockchain.governmentChain.Chain.Count)
+                            {
+                                // List<Transaction> newTransactions = new List<Transaction>();
+                                // newTransactions.AddRange(newChain.PendingTransactions);
+                                // newTransactions.AddRange(Program.GovernmentChain.PendingTransactions);
+
+                                // newChain.PendingTransactions = newTransactions;
+                                Blockchain.governmentChain = newChain;
+                            }
+                        }else{
+                            Blockchain.FirstRunServer = true;
                             Blockchain.governmentChain = newChain;
                         }
+                       
                     }
                 };
                     ws.Connect();
