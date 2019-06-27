@@ -31,7 +31,7 @@ namespace Blockchain.Models
     public Block(DateTime timeStamp, Data newData, Person person, List<Company> companies, Company hostCompany, string cert2)  
     {
 
-        X509Certificate2 cert = new X509Certificate2(cert2, "1234");
+        X509Certificate cert = new X509Certificate(cert2);
         UnicodeEncoding ByteConverter = new UnicodeEncoding();
         //Define variable 'data' that will be encrypted later
 
@@ -73,7 +73,7 @@ namespace Blockchain.Models
                 EncryptedValue[] encryptedValues = Data.encryptedValues;
                 foreach(EncryptedValue eV in encryptedValues){
                     if(eV.targetCompany == Blockchain.hostCompany.name){
-                        X509Certificate2 cert = new X509Certificate2(@"Models/Encryption/CertPrivate/52CA4588AFFB971818FE43BFB24D98A8514CD386.pfx","1234",X509KeyStorageFlags.Exportable);
+                        X509Certificate2 cert = new X509Certificate2(@"Models/Encryption/CertPrivate/B46686F98B414B867550AAB0CCAE2EB4A8733937.pfx", "1234",X509KeyStorageFlags.Exportable);
                         string decryptedDataString = Encryption.DataDecrypt(eV.encryptedData, cert);
                         Data decryptedData = JsonConvert.DeserializeObject<Data>(decryptedDataString);
                         decryptedData.type = Data.type;

@@ -13,21 +13,24 @@ namespace Blockchain.Models.Cryptography
 {
     public class Encryption
     {
-        public static string DataEncrypt(string data, X509Certificate2 cert)
+        public static string DataEncrypt(string data, X509Certificate cert)
         {
+           
+            var x509 = new X509Certificate2(cert);
+            
 
-            using (RSA rsa = cert.GetRSAPublicKey())
+            using (RSA rsa = x509.GetRSAPublicKey())
             {
 
                 UnicodeEncoding ByteConverter = new UnicodeEncoding();
                 byte[] Bdata = ByteConverter.GetBytes(data);
 
+                
+
                 byte[] encrypteddata = rsa.Encrypt(Bdata,RSAEncryptionPadding.Pkcs1);
                 string encrypteddatas = Convert.ToBase64String(encrypteddata);
                 return encrypteddatas;
             }
-            
-            
         }
 
         public static string DataDecrypt(string data, X509Certificate2 cert)
@@ -49,7 +52,7 @@ namespace Blockchain.Models.Cryptography
         // Insert logic for processing found files here.
         public static List<string> ProcessFile()
         {
-            string targetDirectory = @"Models/Encryption/CertPrivate";
+            string targetDirectory = @"Models/Encryption/Certificates";
             // Process the list of files found in the directory.
             string[] fileEntries = Directory.GetFiles(targetDirectory);
             List<string> lijst = new List<string>();
