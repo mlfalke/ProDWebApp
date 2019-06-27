@@ -22,9 +22,9 @@ namespace Blockchain.Models.Cryptography
                 UnicodeEncoding ByteConverter = new UnicodeEncoding();
                 byte[] Bdata = ByteConverter.GetBytes(data);
 
-                byte[] decryptedData = rsa.Encrypt(Bdata,RSAEncryptionPadding.OaepSHA256);
-                string decryptedDataS = Convert.ToBase64String(decryptedData);
-                return decryptedDataS;
+                byte[] encrypteddata = rsa.Encrypt(Bdata,RSAEncryptionPadding.Pkcs1);
+                string encrypteddatas = Convert.ToBase64String(encrypteddata);
+                return encrypteddatas;
             }
             
             
@@ -38,8 +38,8 @@ namespace Blockchain.Models.Cryptography
                 UnicodeEncoding ByteConverter = new UnicodeEncoding();
                 byte[] Bdata = Convert.FromBase64String(data);
 
-                byte[] decryptedData = rsa.Decrypt(Bdata, RSAEncryptionPadding.OaepSHA256);
-                string decryptedDataS = Convert.ToBase64String(decryptedData);
+                byte[] decryptedData = rsa.Decrypt(Bdata, RSAEncryptionPadding.Pkcs1);
+                string decryptedDataS = ByteConverter.GetString(decryptedData);
                 return decryptedDataS;
             }
 
