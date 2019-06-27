@@ -28,6 +28,8 @@ namespace Blockchain
         public static string name = "Unknown";
         public static string ipV4Address;
         public static P2PServer server = null;
+
+        public static Boolean FirstRunServer = true;
         public static P2PClient client = new P2PClient();
         public static Server serversList;
         public static List<Company> companyList;
