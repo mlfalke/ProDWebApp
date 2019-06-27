@@ -31,10 +31,13 @@ namespace Blockchain.Models
     public Block(DateTime timeStamp, Data newData, Person person, List<Company> companies, Company hostCompany, string cert2)  
     {
 
-            X509Certificate2 cert = new X509Certificate2(cert2, "Wachtwoord");
+        X509Certificate2 cert = new X509Certificate2(cert2, "1234");
         UnicodeEncoding ByteConverter = new UnicodeEncoding();
         //Define variable 'data' that will be encrypted later
-        string data = "{'value': " + newData.value + ", 'person': {'surname': '" + person.surname + "', 'bsn': '" + person.bsn + "', 'birthDate': '" + person.birthDate.ToString() + "'}}";
+
+        string data = JsonConvert.SerializeObject(newData); 
+        // JsonConvert.SerializeObject(new Data("Politie","HAllo",person));
+        // "{'value': " + newData.value + ", 'person': {'surname': '" + person.surname + "', 'bsn': '" + person.bsn + "', 'birthDate': '" + person.birthDate.ToString() + "'}}";
 
         string blockData = "{'type': '"+newData.type+"', 'sender': '"+hostCompany.name+"', 'encryptedValues': [";
         
@@ -70,7 +73,7 @@ namespace Blockchain.Models
                 EncryptedValue[] encryptedValues = Data.encryptedValues;
                 foreach(EncryptedValue eV in encryptedValues){
                     if(eV.targetCompany == Blockchain.hostCompany.name){
-                        X509Certificate2 cert = new X509Certificate2(@"C:\Users\matth\Documents\Gitrepo\Blockchain\Blockchain_FINAL_PROJECT\ProDWebApp\Blockchain\Models\Encryption\CertPrivate\EE06F0A054F223238D34D7320F0C7B33DBDC2D7D.pfx","Wachtwoord",X509KeyStorageFlags.Exportable);
+                        X509Certificate2 cert = new X509Certificate2(@"Models/Encryption/CertPrivate/52CA4588AFFB971818FE43BFB24D98A8514CD386.pfx","1234",X509KeyStorageFlags.Exportable);
                         string decryptedDataString = Encryption.DataDecrypt(eV.encryptedData, cert);
                         Data decryptedData = JsonConvert.DeserializeObject<Data>(decryptedDataString);
                         decryptedData.type = Data.type;
