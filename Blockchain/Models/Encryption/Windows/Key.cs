@@ -42,7 +42,7 @@ namespace Blockchain.Models.Cryptography
             // generate a key pair using RSA
             var generator = new RsaKeyPairGenerator();
             // keys have to be a minimum of 2048 bits for Azure
-            generator.Init(new KeyGenerationParameters(new SecureRandom(new CryptoApiRandomGenerator()), 2048));
+            generator.Init(new KeyGenerationParameters(new SecureRandom(new CryptoApiRandomGenerator()), 4096));
             AsymmetricCipherKeyPair cerKp = generator.GenerateKeyPair();
             // get a copy of the private key
             AsymmetricKeyParameter privateKey = cerKp.Private;
