@@ -11,9 +11,16 @@ using Newtonsoft.Json.Linq;
 namespace Blockchain.Models
 {   
     public class Blockdata
+    
     {
         public string type {get; set;}
         public string sender {get; set;}
-        public EncryptedValue[] encryptedValues {get; set;}
+        public List<EncryptedValue> encryptedValues {get; set;}
+
+        public Blockdata(string type,string sender){
+            this.type= type;
+            this.sender = sender;
+            this.encryptedValues = new List<EncryptedValue>();
+        }
     }
 }

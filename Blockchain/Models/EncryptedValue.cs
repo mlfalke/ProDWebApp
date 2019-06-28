@@ -13,6 +13,11 @@ namespace Blockchain.Models
     public class EncryptedValue  
     {
         public string targetCompany{get; set;}
-        public string encryptedData{get; set;}  
+        public Data encryptedData{get; set;}  
+
+        public EncryptedValue(string targetCompany,Data encryptedData){
+            this.targetCompany = targetCompany;
+            this.encryptedData = encryptedData;
+        }
     }
 }

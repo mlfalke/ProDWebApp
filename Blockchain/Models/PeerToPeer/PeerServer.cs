@@ -35,11 +35,6 @@ namespace Blockchain.Models.PeerToPeer
 
                 if (newChain.IsValid() && newChain.Chain.Count > Blockchain.governmentChain.Chain.Count)
                 {
-                    // List<Transaction> newTransactions = new List<Transaction>();
-                    // newTransactions.AddRange(newChain.PendingTransactions);
-                    // newTransactions.AddRange(Program.GovernmentChain.PendingTransactions);
-
-                    // newChain.PendingTransactions = newTransactions;
                     Blockchain.governmentChain = newChain;
                 }
 

@@ -161,8 +161,8 @@ namespace Blockchain.Models
                 IList<Block> blocks = new List<Block>();
                 foreach (Block b in Chain)
                 {
-                    var dataJson = JsonConvert.DeserializeObject<dynamic>(b.Data);
-                    if (dataJson["type"] == type)
+                    // var dataJson = JsonConvert.DeserializeObject<dynamic>(b.Data);
+                    if (b.Data.type == type)
                     {
                         blocks.Add(b);
                     }
@@ -175,8 +175,8 @@ namespace Blockchain.Models
                 IList<Block> blocks = new List<Block>();
                 foreach (Block b in Chain)
                 {
-                    var dataJson = JsonConvert.DeserializeObject<dynamic>(b.Data);
-                    if (dataJson["type"] == type && b.GetBlockData().person == person)
+                    // var dataJson = JsonConvert.DeserializeObject<dynamic>(b.Data);
+                    if (b.Data.type == type && b.GetBlockData().person == person)
                     {
                         blocks.Add(b);
                     }

@@ -8,9 +8,9 @@ namespace Blockchain.Models
     public class Person {
             public string surname;
             public string bsn;
-            public DateTime birthDate;
+            public string birthDate;
 
-            public Person(string surname, string bsn, DateTime birthDate){
+            public Person(string surname, string bsn, string birthDate){
                 this.surname = surname;
                 this.bsn = bsn;
                 this.birthDate = birthDate;

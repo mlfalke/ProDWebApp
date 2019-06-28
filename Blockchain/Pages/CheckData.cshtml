@@ -29,37 +29,40 @@ ViewData["Title"] = "CheckData";
             <h4>Gegevens:</h4>
         </div>
     </div>
-    @foreach (Blockchain.Models.Block std in Blockchain.Blockchain.governmentChain.Chain){
-        
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-2 Naam" style="padding-right: 15px;">
+    @{
+        @foreach (Blockchain.Models.Block std in Blockchain.Blockchain.governmentChain.Chain){
+        @if (std.PreviousHash==""){continue;}   
+            Blockchain.Models.Data data = std.GetBlockData();
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2 Naam" style="padding-right: 15px;">
 
-                <p style="word-wrap: break-word;">@std.GetBlockData().person.surname</p>
+                        <p style="word-wrap: break-word;">@data.person.surname</p>
 
+                    </div>
+                    <div class="col-lg-2 BSN" style="padding-right: 15px;">
+
+
+                        <p style="word-wrap: break-word;">@data.person.bsn</p>
+
+                    </div>
+                    <div class="col-lg-3 bDate" style="padding-right: 15px;">
+
+
+                        <p style="word-wrap: break-word;">@data.person.birthDate</p>
+
+                    </div>
+                    <div class="col-lg-2 TypeData" style="padding-right: 15px;">
+
+                        <p style="word-wrap: break-word;">@data.type</p>
+
+                    </div>
+                    <div class="col-lg-2 ValueBlock" style="padding-right: 15px;">
+                        <p style="word-wrap: break-word;">@data.value</p>
+
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-2 BSN" style="padding-right: 15px;">
-
-
-                <p style="word-wrap: break-word;">@std.GetBlockData().person.bsn</p>
-
-            </div>
-            <div class="col-lg-3 bDate" style="padding-right: 15px;">
-
-
-                <p style="word-wrap: break-word;">@std.GetBlockData().person.birthDate</p>
-
-            </div>
-            <div class="col-lg-2 TypeData" style="padding-right: 15px;">
-
-                <p style="word-wrap: break-word;">@std.GetBlockData().type</p>
-
-            </div>
-            <div class="col-lg-2 ValueBlock" style="padding-right: 15px;">
-                <p style="word-wrap: break-word;">@std.GetBlockData().value</p>
-
-            </div>
-        </div>
-    </div>
+        }
     }
 </div>

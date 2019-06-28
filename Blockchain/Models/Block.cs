@@ -16,7 +16,7 @@ namespace Blockchain.Models
     public DateTime TimeStamp { get; set; }  
     public string PreviousHash { get; set; }  
     public string Hash { get; set; }  
-    public string Data { get; set; }
+    public Blockdata Data { get; set; }
 
 
         [JsonConstructor]
@@ -24,7 +24,6 @@ namespace Blockchain.Models
         this.Index = 0;
         this.TimeStamp = timeStamp;
         this.PreviousHash = "";
-        this.Data = "{}";
         this.Hash = CalculateHash();
     }
     
@@ -36,26 +35,26 @@ namespace Blockchain.Models
         //Define variable 'data' that will be encrypted later
 
         string data = JsonConvert.SerializeObject(newData); 
-        // JsonConvert.SerializeObject(new Data("Politie","HAllo",person));
-        // "{'value': " + newData.value + ", 'person': {'surname': '" + person.surname + "', 'bsn': '" + person.bsn + "', 'birthDate': '" + person.birthDate.ToString() + "'}}";
-
-        string blockData = "{'type': '"+newData.type+"', 'sender': '"+hostCompany.name+"', 'encryptedValues': [";
-        
+        Blockdata blockData = new Blockdata(newData.type,hostCompany.name); 
         //Check if companies have permission to read the data. If so, encrypt the data with their keys and add it to JSON-formatted string blockData
         foreach(Company c in companies){
+            Data encryptedData = new Data(newData.type,newData.value,new Person(newData.person.surname,newData.person.bsn,newData.person.birthDate));
             foreach(Permission p in c.GetTruePermissions()){
                 if(p.name == newData.type){
-                        //TO DO: Add gathering of specific public key of the company (c) with "c.publicKey" and encrypt variable "data" with that key.
-                        blockData = blockData + "{'targetCompany': '"+c.name+"', 'encryptedData': '"+Encryption.DataEncrypt(data,cert)+"'},";
+                    //TO DO: Add gathering of specific public key of the company (c) with "c.publicKey" and encrypt variable "data" with that key.
+                    encryptedData.value = Encryption.DataEncrypt(encryptedData.value,cert);
+                    encryptedData.person.birthDate = Encryption.DataEncrypt(encryptedData.person.birthDate,cert);
+                    encryptedData.person.bsn = Encryption.DataEncrypt(encryptedData.person.bsn,cert);
+                    encryptedData.person.surname = Encryption.DataEncrypt(encryptedData.person.surname,cert);
+
+                    blockData.encryptedValues.Add(new EncryptedValue(c.name,encryptedData));
                 }
             }
+            encryptedData = null; 
         }
 
         
 
-        //Close and finish the blockData string so it is fully closed off
-        blockData = blockData.Substring(0,blockData.Length-1);
-        blockData = blockData + "]}";
 
         this.Index = 0;  
         this.TimeStamp = timeStamp;  
@@ -66,26 +65,27 @@ namespace Blockchain.Models
 
         public Data GetBlockData()
         {
-            if(this.Data!="{}")
+            if(this.Data!=null)
             {
-                Blockdata Data = JsonConvert.DeserializeObject<Blockdata>(this.Data);
-                // <dynamic>(this.Data);
-                EncryptedValue[] encryptedValues = Data.encryptedValues;
+                Blockdata Data = this.Data; 
+                List<EncryptedValue> encryptedValues = Data.encryptedValues;
                 foreach(EncryptedValue eV in encryptedValues){
                     if(eV.targetCompany == Blockchain.hostCompany.name){
-                        X509Certificate2 cert = new X509Certificate2(@"Models/Encryption/CertPrivate/B46686F98B414B867550AAB0CCAE2EB4A8733937.pfx", "1234",X509KeyStorageFlags.Exportable);
-                        string decryptedDataString = Encryption.DataDecrypt(eV.encryptedData, cert);
-                        Data decryptedData = JsonConvert.DeserializeObject<Data>(decryptedDataString);
+                        X509Certificate2 cert = new X509Certificate2(@"Models/Encryption/CertPrivate/C7813B515275683FDF4AEED6CB557A3EF9B96C2C.pfx", "1234",X509KeyStorageFlags.Exportable);
+                        
+                        Data decryptedData = new Data(eV.encryptedData.type,eV.encryptedData.value,new Person(eV.encryptedData.person.surname,eV.encryptedData.person.bsn,eV.encryptedData.person.birthDate)); 
+                        decryptedData.value = Encryption.DataDecrypt(decryptedData.value,cert);
+                        decryptedData.person.birthDate = Encryption.DataDecrypt(decryptedData.person.birthDate,cert);
+                        decryptedData.person.bsn = Encryption.DataDecrypt(decryptedData.person.bsn,cert);
+                        decryptedData.person.surname = Encryption.DataDecrypt(decryptedData.person.surname,cert);
                         decryptedData.type = Data.type;
                         return(decryptedData);
-                    }        
-                }               
+                    }
+                }
+                return encryptedValues[0].encryptedData;
             }
-            return new Data("","",new Person("empty","empty",DateTime.Now));
-            
+            return new Data("","",new Person("empty","empty",this.TimeStamp.ToString()));
         }
-
-
 
         public string CalculateHash()  
     {  
