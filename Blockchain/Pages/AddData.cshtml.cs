@@ -37,7 +37,7 @@ namespace Blockchain.Pages
         [Display(Name = "value")]
         public string value { get; set; }
 
-        public List<string> cert = Encryption.ProcessFile();
+        // public List<string> cert = Encryption.ProcessFile();
 
         public IActionResult OnPostAsync([FromForm]string surname, string bsn, DateTime birthDate, string type, string value, string cert)
         {
@@ -46,10 +46,15 @@ namespace Blockchain.Pages
             Data newData = new Data(type, value, person);
             // LoadBlockchain.loadchain();
             
-            Block block = new Block(DateTime.Now, newData, person, Blockchain.companyList, Blockchain.hostCompany,cert);
+            Block block = new Block(DateTime.Now, newData, Blockchain.companyList, Blockchain.hostCompany);
             
             Blockchain.governmentChain.AddBlock(block);
             
+            Console.WriteLine(Blockchain.governmentChain.IsValid());
+            var d = JsonConvert.SerializeObject(block);
+            Block c = JsonConvert.DeserializeObject<Block>(d);
+            var hash = c.CalculateHash();
+
             Blockchain.client.Broadcast(JsonConvert.SerializeObject(Blockchain.governmentChain));
 
             return RedirectToPage();
