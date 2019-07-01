@@ -39,6 +39,7 @@ namespace Blockchain
 
         public static void Main(string[] args)
         {
+            governmentChain.InitializeChain();
             using (StreamReader r = new StreamReader("companies.json"))
             {
                 string companiesJson = r.ReadToEnd();
@@ -64,9 +65,11 @@ namespace Blockchain
             
             server = new P2PServer();
             server.Start();
+
             ConnectServers();
 
             CreateWebHostBuilder(args).Build().Run();
+
         }
 
         static void ConnectServers()
@@ -97,6 +100,7 @@ namespace Blockchain
                 aTimer.Interval = 10000;
                 aTimer.Enabled = true;
             }
+            return;
         }
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {

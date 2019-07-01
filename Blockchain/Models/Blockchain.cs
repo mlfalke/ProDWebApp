@@ -54,8 +54,6 @@ namespace Blockchain.Models
             public Blockchainblock()
             {
 
-                InitializeChain();
-
                 // GetCurrentChain();
 
             }
@@ -218,7 +216,7 @@ namespace Blockchain.Models
                 {
                     Block currentBlock = Chain[i];
                     Block previousBlock = Chain[i - 1];
-
+                    
                     if (currentBlock.Hash != currentBlock.CalculateHash())
                     {
                         return false;
