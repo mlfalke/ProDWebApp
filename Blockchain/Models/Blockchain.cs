@@ -50,10 +50,9 @@ namespace Blockchain.Models
             public IList<Block> Chain { get; set; }
 
 
-
+            [JsonConstructor]
             public Blockchainblock()
             {
-
                 // GetCurrentChain();
 
             }

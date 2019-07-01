@@ -52,10 +52,6 @@ namespace Blockchain.Models
             }
             encryptedData = null; 
         }
-
-        
-
-
         this.Index = 0;  
         this.TimeStamp = timeStamp;  
         this.PreviousHash = "";  
@@ -87,11 +83,11 @@ namespace Blockchain.Models
             return new Data("","",new Person("empty","empty",this.TimeStamp.ToString()));
         }
 
-        public string CalculateHash()  
+    public string CalculateHash()  
     {  
         SHA256 sha256 = SHA256.Create();  
-  
-        byte[] inputBytes = Encoding.ASCII.GetBytes($"{TimeStamp}-{PreviousHash ?? ""}-{Data}");  
+        // Hash word aangemaakt voordat data is gencrypt.
+        byte[] inputBytes = Encoding.ASCII.GetBytes($"{this.TimeStamp}-{this.PreviousHash ?? ""}-{this.Data}");  
         byte[] outputBytes = sha256.ComputeHash(inputBytes);  
   
         return Convert.ToBase64String(outputBytes);  
