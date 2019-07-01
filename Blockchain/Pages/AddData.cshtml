@@ -45,16 +45,10 @@
                     <input asp-for="value" class="form-control" maxlength="16" />
                     <span asp-validation-for="value" class="text-danger"></span>
                 </div>
-                <div id="cert" class="form-group">
-                    @Html.LabelFor(x => Model.cert, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-5">
-                        @Html.DropDownListFor(x => Model.cert, new SelectList(Model.cert, "Value"), htmlAttributes: new { @class = "form-control", id = "cert" })
-                        @Html.ValidationMessageFor(x => x.cert, "", new { @class = "text-danger" })
-                    </div>
+               
+                <div>
+                    <input type="submit" value="Akkoord" class="btn btn-primary" />
                 </div>
-                    <div>
-                        <input type="submit" value="Akkoord" class="btn btn-primary" />
-                    </div>
             </form>
         </div>
     </div>

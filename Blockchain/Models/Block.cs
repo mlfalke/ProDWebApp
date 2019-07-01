@@ -27,10 +27,8 @@ namespace Blockchain.Models
         this.Hash = CalculateHash();
     }
     
-    public Block(DateTime timeStamp, Data newData, Person person, List<Company> companies, Company hostCompany, string cert2)  
+    public Block(DateTime timeStamp, Data newData, List<Company> companies, Company hostCompany)  
     {
-
-        X509Certificate cert = new X509Certificate(cert2);
         UnicodeEncoding ByteConverter = new UnicodeEncoding();
         //Define variable 'data' that will be encrypted later
 
@@ -41,6 +39,9 @@ namespace Blockchain.Models
             Data encryptedData = new Data(newData.type,newData.value,new Person(newData.person.surname,newData.person.bsn,newData.person.birthDate));
             foreach(Permission p in c.GetTruePermissions()){
                 if(p.name == newData.type){
+                    string certName = Encryption.ProcessFile(c.name);
+                    X509Certificate cert = new X509Certificate(certName);
+
                     //TO DO: Add gathering of specific public key of the company (c) with "c.publicKey" and encrypt variable "data" with that key.
                     encryptedData.value = Encryption.DataEncrypt(encryptedData.value,cert);
                     encryptedData.person.birthDate = Encryption.DataEncrypt(encryptedData.person.birthDate,cert);
