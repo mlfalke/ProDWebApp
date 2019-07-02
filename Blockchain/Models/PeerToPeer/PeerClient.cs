@@ -33,6 +33,12 @@ namespace Blockchain.Models.PeerToPeer{
                         ws.Send("Hi Server");
                         ws.Send(JsonConvert.SerializeObject(Blockchain.governmentChain));
                         wsDict.Add(url, ws);
+                        
+                        ws.OnClose += (sender,e) =>
+                        {
+                            wsDict.Remove(ws.Url.ToString());
+                        };
+
                         return true;
                     }else{
                         return false;
