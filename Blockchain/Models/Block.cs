@@ -23,7 +23,7 @@ namespace Blockchain.Models
         [JsonConstructor]
     public Block(DateTime timeStamp){
         this.Index = 0;
-        this.TimeStamp =  timeStamp.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
+        this.TimeStamp =  timeStamp.ToString("f", CultureInfo.CreateSpecificCulture("en-US"));
         this.PreviousHash = "";
         this.Hash = CalculateHash();
     }
@@ -55,7 +55,7 @@ namespace Blockchain.Models
             encryptedData = null; 
         }
         this.Index = 0;  
-        this.TimeStamp = timeStamp.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));;  
+        this.TimeStamp = timeStamp.ToString("f", CultureInfo.CreateSpecificCulture("en-US"));;  
         this.PreviousHash = "";  
         this.Data = blockData;
         this.Hash = CalculateHash();  
