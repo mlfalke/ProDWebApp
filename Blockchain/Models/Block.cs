@@ -7,13 +7,14 @@ using System.IO;
 using Blockchain.Models.Cryptography;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 namespace Blockchain.Models
 {   
     public class Block  
 {  
     public int Index { get; set; }  
-    public DateTime TimeStamp { get; set; }  
+    public string TimeStamp { get; set; }  
     public string PreviousHash { get; set; }  
     public string Hash { get; set; }  
     public Blockdata Data { get; set; }
@@ -22,7 +23,7 @@ namespace Blockchain.Models
         [JsonConstructor]
     public Block(DateTime timeStamp){
         this.Index = 0;
-        this.TimeStamp = timeStamp;
+        this.TimeStamp =  timeStamp.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
         this.PreviousHash = "";
         this.Hash = CalculateHash();
     }
@@ -54,7 +55,7 @@ namespace Blockchain.Models
             encryptedData = null; 
         }
         this.Index = 0;  
-        this.TimeStamp = timeStamp;  
+        this.TimeStamp = timeStamp.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));;  
         this.PreviousHash = "";  
         this.Data = blockData;
         this.Hash = CalculateHash();  
