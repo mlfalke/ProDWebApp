@@ -68,7 +68,7 @@ namespace Blockchain
             server = new P2PServer();
             server.Start();
 
-            // ConnectServers();
+            ConnectServers();
 
             CreateWebHostBuilder(args).Build().Run();
 
