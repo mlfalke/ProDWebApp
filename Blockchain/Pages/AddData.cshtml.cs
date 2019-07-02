@@ -49,12 +49,7 @@ namespace Blockchain.Pages
             Block block = new Block(DateTime.Now, newData, Blockchain.companyList, Blockchain.hostCompany);
             
             Blockchain.governmentChain.AddBlock(block);
-            
-            Console.WriteLine(Blockchain.governmentChain.IsValid());
-            var d = JsonConvert.SerializeObject(block);
-            Block c = JsonConvert.DeserializeObject<Block>(d);
-            var hash = c.CalculateHash();
-
+        
             Blockchain.client.Broadcast(JsonConvert.SerializeObject(Blockchain.governmentChain));
 
             return RedirectToPage();

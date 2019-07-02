@@ -68,7 +68,8 @@ namespace Blockchain.Models
                 List<EncryptedValue> encryptedValues = Data.encryptedValues;
                 foreach(EncryptedValue eV in encryptedValues){
                     if(eV.targetCompany == Blockchain.hostCompany.name){
-                        X509Certificate2 cert = new X509Certificate2(@"Models/Encryption/CertPrivate/C7813B515275683FDF4AEED6CB557A3EF9B96C2C.pfx", "1234",X509KeyStorageFlags.Exportable);
+
+                        X509Certificate2 cert = new X509Certificate2(Encryption.Prikey(), Blockchain.myPassword,X509KeyStorageFlags.Exportable);
                         
                         Data decryptedData = new Data(eV.encryptedData.type,eV.encryptedData.value,new Person(eV.encryptedData.person.surname,eV.encryptedData.person.bsn,eV.encryptedData.person.birthDate)); 
                         decryptedData.value = Encryption.DataDecrypt(decryptedData.value,cert);

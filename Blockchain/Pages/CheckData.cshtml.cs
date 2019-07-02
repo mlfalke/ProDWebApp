@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Blockchain.Controllers;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Blockchain.Models.Cryptography;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Blockchain.Pages
 {
@@ -21,7 +23,7 @@ namespace Blockchain.Pages
         public string type { get; set; }
 
         public string value { get; set; }
-        public List<string> cert = Encryption.Prikey();
+        public string cert = Encryption.Prikey();
 
         public void OnGet() 
             {
@@ -30,6 +32,6 @@ namespace Blockchain.Pages
             birthDate = "Some Multiverses ago";
             type = "Wabalabadubdub";
             value = "L..L..L..Lick mah ballzz";
-            }        
+            }
     }
 }

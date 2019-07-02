@@ -75,19 +75,12 @@ namespace Blockchain.Models.Cryptography
         }
 
 
-        public static List<string> Prikey()
+        public static string Prikey()
         {
             string targetDirectory = @"Models/Encryption/CertPrivate";
             // Process the list of files found in the directory.
             string[] fileEntries = Directory.GetFiles(targetDirectory);
-            List<string> lijst = new List<string>();
-            foreach (string fileName in fileEntries)
-            {
-                lijst.Add(fileName);
-            }
-            return lijst;
-
-
+            return( fileEntries[0] );
         }
 
 
