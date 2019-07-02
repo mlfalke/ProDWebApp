@@ -7,12 +7,12 @@
 <div class="container">
     <div class="row">
         <div class="DataForm">
-            <form class="AddDataForm" method="post" asp-controller="AddBlock" asp-action="AddData">
-                <h2>Data toevoegen</h2>
+            <form class="AddDataForm" method="post" asp-controller="PassCheck" asp-action="OnPost">
+                <h2>Data bekijken</h2>
                 <div class="form-group">
-                    <label asp-for="password" class="surname">Wachtwoord:</label>
-                    <input asp-for="password" class="form-control" maxlength="256" />
-                    <span asp-validation-for="password" class="text-danger"></span>
+                    <label asp-for="passwordcheck" class="passwordcheck">Wachtwoord:</label>
+                    <input asp-for="passwordcheck" class="form-control" maxlength="256" />
+                    <span asp-validation-for="passwordcheck" class="text-danger"></span>
                 </div>
                 <div>
                     <input type="submit" value="Akkoord" class="btn btn-primary" />

@@ -13,6 +13,21 @@ namespace Blockchain.Pages
 {
     public class PassCheckModel : PageModel
     {
-       public string  password { get; set; }
+        public string passwordcheck { get; set; }
+        
+        public string password { get; set; } = "hoi";
+
+        public IActionResult OnPost(string passwordcheck)
+         {
+            if (password == passwordcheck)
+            {
+                return RedirectToPage("CheckData");
+            }
+            else
+            {
+                return RedirectToPage("PassCheck");
+            }
+            
+         }
     }
 }
