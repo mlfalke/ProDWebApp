@@ -67,7 +67,7 @@ namespace Blockchain.Models.Cryptography
         // Insert logic for processing found files here.
         public static string ProcessFile(string certDirectory)
         {
-            string targetDirectory = @"Models/Encryption/Certificates/"+certDirectory;
+            string targetDirectory =Path.Combine(@"Models/Encryption/Certificates/" +certDirectory);
             // Process the list of files found in the directory.
             string[] fileEntries = Directory.GetFiles(targetDirectory);
             string certName = fileEntries[0];
