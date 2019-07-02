@@ -36,6 +36,8 @@ namespace Blockchain
 
         public static Company hostCompany;
 
+        public static string myPassword;
+
 
         public static void Main(string[] args)
         {
@@ -66,7 +68,7 @@ namespace Blockchain
             server = new P2PServer();
             server.Start();
 
-            ConnectServers();
+            // ConnectServers();
 
             CreateWebHostBuilder(args).Build().Run();
 
@@ -112,5 +114,18 @@ namespace Blockchain
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
+       public static bool CheckPassword(string password){
+            try
+            {
+                X509Certificate2 cert = new X509Certificate2(Encryption.Prikey(),password,X509KeyStorageFlags.Exportable);
+                Blockchain.myPassword  = password;
+                return true;
+            }
+            catch (System.Exception Error)
+            {
+                Console.WriteLine(Error);
+                return false;
+            }
+        }
     }
 }

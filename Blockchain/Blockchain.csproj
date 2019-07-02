@@ -17,9 +17,10 @@
 
 
   <ItemGroup>
-    <Folder Include="Models\Encryption\Certificates\" />
-    <Folder Include="Models\Encryption\CertPrivate\" />
-    <Folder Include="Models\Encryption\Certificates\" />
+    <Folder Include="Models\Encryption\Certificates\Gemeente\" />
+    <Folder Include="Models\Encryption\Certificates\Politie\"/>
+    <Folder Include="Models\Encryption\Certificates\Reclassering\"/>
+    <Folder Include="Models\Encryption\Certificates\OM\"/>
     <Folder Include="Models\Encryption\CertPrivate\" />
   </ItemGroup>
 
