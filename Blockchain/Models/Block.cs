@@ -68,6 +68,8 @@ namespace Blockchain.Models
                 List<EncryptedValue> encryptedValues = Data.encryptedValues;
                 foreach(EncryptedValue eV in encryptedValues){
                     if(eV.targetCompany == Blockchain.hostCompany.name){
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
                         X509Certificate2 cert = new X509Certificate2(Encryption.Prikey(), Blockchain.myPassword,X509KeyStorageFlags.Exportable);
                         
@@ -76,6 +78,13 @@ namespace Blockchain.Models
                         decryptedData.person.birthDate = Encryption.DataDecrypt(decryptedData.person.birthDate,cert);
                         decryptedData.person.bsn = Encryption.DataDecrypt(decryptedData.person.bsn,cert);
                         decryptedData.person.surname = Encryption.DataDecrypt(decryptedData.person.surname,cert);
+=======
+=======
+>>>>>>> Stashed changes
+                        X509Certificate2 cert = new X509Certificate2(@"Models/Encryption/CertPrivate/B4E73775DDD497D9270947B6DDB2CE333287C6E1.pfx","1234",X509KeyStorageFlags.Exportable);
+                        string decryptedDataString = Encryption.DataDecrypt(eV.encryptedData, cert);
+                        Data decryptedData = JsonConvert.DeserializeObject<Data>(decryptedDataString);
+>>>>>>> Stashed changes
                         decryptedData.type = Data.type;
                         return(decryptedData);
                     }

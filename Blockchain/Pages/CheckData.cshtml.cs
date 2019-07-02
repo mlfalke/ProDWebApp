@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Blockchain.Controllers;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Blockchain.Models.Cryptography;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Blockchain.Pages
 {
