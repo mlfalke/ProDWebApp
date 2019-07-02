@@ -25,11 +25,7 @@ namespace Blockchain.Pages
 
         public void OnGet() 
             {
-            surname = "Rick Sanchez";
-            bsn = "None of your Business";
-            birthDate = "Some Multiverses ago";
-            type = "Wabalabadubdub";
-            value = "L..L..L..Lick mah ballzz";
+            
             }        
     }
 }

@@ -1,22 +1,22 @@
 { 
-    "Port": 6000,
+    "Port": 6003,
     "Ip": "0.0.0.0",
-    "Name": "Politie",
+    "Name": "Reclassering",
     "Nodes": [
         {
             "Port": 6001,
-            "Ip": "0.0.0.0",
+            "Ip": "145.137.77.125",
             "Name": "Gemeente"
         },
         {
-            "Port": 6002,
-            "Ip": "0.0.0.0",
+            "Port": 6004,
+            "Ip": "145.137.3.235",
             "Name": "OM"
         },
         {
-            "Port": 6003,
-            "Ip": "0.0.0.0",
-            "Name": "Reclassering"
+          "Port": 6000,
+          "Ip": "145.137.26.201",
+          "Name": "Politie"
         },
         {
             "Port": 6004,
