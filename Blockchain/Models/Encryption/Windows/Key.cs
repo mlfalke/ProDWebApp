@@ -21,23 +21,12 @@ namespace Blockchain.Models.Cryptography
     public class Key
     {
         //windows manier van opslaan RSA keys
-            #region Methods X509Certificate2 Create
-
-        /// <summary>
-        /// Adds a certificate to My store for the LocalMachine
-        /// </summary>
-        public static void AddToMyStore(X509Certificate2 certificate2)
-        {
-            X509Store store = ReturnStore();
-            store.Add(certificate2);
-            store.Close();
-        }
-
+            #region Methods X509Certificate2 Create BOUNCYCASTLE
         /// <summary>
         /// Static method used to create a certificate and return as a .net object
         /// </summary>
         
-        public static X509Certificate2 Create(string name, DateTime start, DateTime end, string userPassword, bool addtoStore = false, string exportDirectory = @"Models/Encryption/Certificates")
+        public static X509Certificate2 Create(string name, DateTime start, DateTime end, string userPassword, bool addtoStore = false, string exportDirectory = @"Models/Encryption/Certificates/OM")
         {
             // generate a key pair using RSA
             var generator = new RsaKeyPairGenerator();
@@ -130,6 +119,7 @@ namespace Blockchain.Models.Cryptography
             return cert;
         }
 
+        #region Add certificate to store 
         /// <summary>
         /// Checks to see whether the certificate is in the appropriate store
         /// </summary>
@@ -161,6 +151,18 @@ namespace Blockchain.Models.Cryptography
             store.Open(OpenFlags.OpenExistingOnly | OpenFlags.ReadWrite);
             return store;
         }
+        /// <summary>
+        /// Adds a certificate to My store for the LocalMachine
+        /// </summary>
+        public static void AddToMyStore(X509Certificate2 certificate2)
+        {
+            X509Store store = ReturnStore();
+            store.Add(certificate2);
+            store.Close();
+        }
+        #endregion Add certificate to store
+
+
 
         #endregion Methods
     }
